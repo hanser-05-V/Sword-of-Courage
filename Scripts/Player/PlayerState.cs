@@ -13,7 +13,7 @@ public class PlayerState : MonoBehaviour
 
     public virtual void OnEntry()
     {
-
+        Debug.Log("OnEntry");
     }
 
     public virtual void OnUpdate()
