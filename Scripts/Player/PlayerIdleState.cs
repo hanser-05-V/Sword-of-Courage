@@ -18,7 +18,7 @@ public class PlayerIdleState : PlayerGroundState
 
          if(xInput != 0) 
         {
-            Debug.Log("Player is moving");
+           
             stateMachine.ChangeState(player.playerMoveState);
         }
     }

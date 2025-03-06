@@ -23,18 +23,14 @@ public class PlayerState : MonoBehaviour
 
     public virtual void OnEntry()
     {
-<<<<<<< HEAD
+        
         player.animator.SetBool(animatorBoolName, true);
-
         rb = player.rb;
-=======
-        Debug.Log("OnEntry");
->>>>>>> ce0f98dfd945c76a3efe7d485e45d0fcf5cd4822
     }
 
     public virtual void OnUpdate()
     {
-        xInput = Input.GetAxis("Horizontal");   
+        xInput = Input.GetAxisRaw("Horizontal");   
     }
 
     public virtual void OnExit()

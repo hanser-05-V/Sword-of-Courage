@@ -2,24 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMoveState : PlayerGroundState
+public class PlayerJumpBackState : PlayerState
 {
-    public PlayerMoveState(Player _player, PlayerStateMachine _stateMachine, string _animatorBoolName) : base(_player, _stateMachine, _animatorBoolName)
+
+    public PlayerJumpBackState(Player _player, PlayerStateMachine _stateMachine, string _animatorBoolName) : base(_player, _stateMachine, _animatorBoolName)
     {
     }
+
 
     public override void OnEntry()
     {
         base.OnEntry();
+
+        rb.AddForce(Vector2.up *player.jumpForce);
+      
     }
     public override void OnUpdate()
     {
-
         base.OnUpdate();
-
-        player.SetVelocity(xInput * player.movrSpeed , rb.velocity.y);
-       
-        
     }
     public override void OnExit()
     {
