@@ -115,7 +115,7 @@ public class Blackhole_Skill_Controller : MonoBehaviour
             {
                 // SkillManager.Instance.crystal.CreatCrystal();
                 // SkillManager.Instance.crystal.CrystalChooseRandomEnemy();
-                // //SkillManager.Instance.     
+                //SkillManager.Instance.     
             }
             else
             {
