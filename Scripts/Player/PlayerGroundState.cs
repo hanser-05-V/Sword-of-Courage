@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerGroundState : PlayerState
 {
-    public PlayerGroundState(Player _player, PlayerStateMachine _stateMachine, string _animatorBoolName) : base(_player, _stateMachine, _animatorBoolName)
+    public PlayerGroundState(Player player, PlayerStateMachine stateMachine, string animatorBoolName) : base(player, stateMachine, animatorBoolName)
     {
     }
 
@@ -12,27 +12,48 @@ public class PlayerGroundState : PlayerState
     {
         base.OnEntry();
     }
-    public override void OnUpdate()
-    {
 
-        base.OnUpdate();
-
-        if(xInput==0)//å¦‚æœxè½´è¾“å…¥ä¸º0
-        {
-            stateMachine.ChangeState(player.playerIdleState);
-        }
-        if(Input.GetKeyDown(KeyCode.Space) && player.IsGround()) // æŒ‰ä¸‹ç©ºæ ¼é”® å¹¶ä¸”åœ¨åœ°é¢ä¸Š
-        {
-            //è·³è·ƒ
-            Debug.Log("å‘å‰è·³è·ƒ");
-            stateMachine.ChangeState(player.playerJumpForwordState);
-
-        }
-        
-
-    }
     public override void OnExit()
     {
         base.OnExit();
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+        //±£Ö¤³å´Ì½âÊÍÂäÏÂºó ÄÜ²¥·ÅÏÂÂä¶¯»­
+        if (!player.IsGroundDetected())
+            stateMachine.ChangeState(player.airState);
+        //±ØĞëÊÇµØ°å²ã¼¶ÉÏÃæ²Å¿ÉÒÔÌøÔ¾ £¨µĞÈËÉíÌåµÈ²»ÄÜÌøÔ¾£©
+        if (Input.GetKeyDown(KeyCode.Space) && player.IsGroundDetected())
+            stateMachine.ChangeState(player.jumpState);
+        //µã»÷Êó±ê½øÈë¹¥»÷
+        if (Input.GetMouseButtonDown(0) && !player.isBusy )
+        { 
+            stateMachine.ChangeState(player.attackState);
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            stateMachine.ChangeState(player.counterAttackState);
+        }
+        if (Input.GetMouseButtonDown(1) && HasNoSword())
+        {
+            stateMachine.ChangeState(player.aimSwordState);
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            stateMachine.ChangeState(player.blackHoleState);
+        }
+
+    }
+    private bool HasNoSword()
+    {
+        if (!player.sword)
+        {
+            return true;
+        }
+        player.sword.GetComponent<Sword_Skill_Controller>().ReturnSword();
+        return false;
     }
 }

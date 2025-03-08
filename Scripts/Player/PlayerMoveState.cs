@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMoveState : PlayerGroundState
 {
-    public PlayerMoveState(Player _player, PlayerStateMachine _stateMachine, string _animatorBoolName) : base(_player, _stateMachine, _animatorBoolName)
+    public PlayerMoveState(Player player, PlayerStateMachine stateMachine, string animatorBoolName) : base(player, stateMachine, animatorBoolName)
     {
     }
 
@@ -12,17 +12,21 @@ public class PlayerMoveState : PlayerGroundState
     {
         base.OnEntry();
     }
-    public override void OnUpdate()
-    {
 
-        base.OnUpdate();
-
-        player.SetVelocity(xInput * player.movrSpeed , rb.velocity.y);
-       
-        
-    }
     public override void OnExit()
     {
         base.OnExit();
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+        //设置移动速度
+        player.SetVelocity(xInput * player.moveSpeed, rb.velocity.y);
+        if (xInput == 0)
+            stateMachine.ChangeState(player.idleState);
+        //检测到墙壁 直接变为静止
+        if (player.IsWallDetected())
+            stateMachine.ChangeState(player.idleState);
     }
 }

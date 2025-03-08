@@ -1,40 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Video;
 
-public class PlayerState : MonoBehaviour
+public class PlayerState 
 {
-    
-    protected  PlayerStateMachine stateMachine;//ç©å®¶çŠ¶æ€æœº
-    protected Player  player;//ç©å®¶å¯¹è±¡
+    protected PlayerStateMachine stateMachine;
 
-    protected string animatorBoolName;//åŠ¨ç”»åˆ‡æ¢åç§°
-    protected float xInput;//Xè½´è¾“å…¥
+    protected Player player;
 
-    protected Rigidbody2D rb; //ç©å®¶åˆšä½“
+    protected Rigidbody2D rb;
+    protected string animatorBoolName;
+    //Ë®Æ½ÊäÈë
+    protected float xInput;
+    protected float yInput;
+    //Ã¿¸ö×´Ì¬µÄ¼ÆÊ±Æ÷£¬µİ¼õÅĞ¶ÏÊ±¼ä
+    protected float stateTimer;
 
-    public PlayerState(Player _player,PlayerStateMachine _stateMachine , string _animatorBoolName)
+    //¼ÇÂ¼ÊÇ·ñ¹¥»÷½áÊø 
+    public bool triggerCalled;
+
+    public PlayerState(Player player,PlayerStateMachine stateMachine,string animatorBoolName)
     {
-        player = _player;
-        stateMachine = _stateMachine;
-        animatorBoolName = _animatorBoolName;
+        this.player = player;
+        this.animatorBoolName = animatorBoolName;
+        this.stateMachine = stateMachine;
     }
 
     public virtual void OnEntry()
     {
-        
+        triggerCalled = false;
         player.animator.SetBool(animatorBoolName, true);
         rb = player.rb;
     }
 
     public virtual void OnUpdate()
     {
-        xInput = Input.GetAxisRaw("Horizontal");   
+        stateTimer -= Time.deltaTime;
+        xInput = Input.GetAxisRaw("Horizontal");
+        yInput = Input.GetAxisRaw("Vertical");
+        player.animator.SetFloat("Yveloctity", rb.velocity.y);
     }
 
     public virtual void OnExit()
     {
         player.animator.SetBool(animatorBoolName, false);
-    }   
+    }    
 }

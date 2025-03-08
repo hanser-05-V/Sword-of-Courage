@@ -1,51 +1,172 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using JetBrains.Annotations;
 using UnityEngine;
 
 public class Player : Entity
 {
-
-    [Header("移动跳跃相关")]
-    public float movrSpeed;
+    [Header("����ϸ��")]
+    public float[] AttackMoment;
+    public float counterTime;
+   
+    public bool isBusy;
+    [Header("�ƶ����")]
+    public float moveSpeed;
     public float jumpForce;
-    public int jumpCount {get;private set;}
+    public float swordReturnImpact;
+    private float defaultMoveSpeed;
+    private float defultJumpForce;
 
-    #region  组件相关
-    public PlayerStateMachine stateMachine ;
+
+    [Header("Dash Info")]
+
+    [SerializeField] private float dashCoolDown;  //�����ȴʱ��
+    private float dashUsageTime;    //���ü�¼��ȴʱ��
+    public float dashSpeed;//����ٶ�
+    public float dashDuration;   //���ʱ��
+    private float defultDashSpeed;
+    public float dashDir { get;private set; }   //��̷��� (ר�ŵĳ�̷��򣬶����Ǽ������泯����)
+    [Space]
+
+    public bool canClone;
+
+    public SkillManager skill { get; private set; }
+    public GameObject sword { get; private set; }
+
+    #region state ���
+    public PlayerStateMachine stateMachine;
+
+    public PlayerIdleState idleState;
+
+    public PlayerMoveState moveState;
+
+    public PlayerJumpState jumpState;
+    public PlayerAirState airState;
+    public PlayerWallSlideState wallSlideState;
+    public PlayerWallJumpState wallJumpState;
+
+    public PlayerDashState dashState;
+
+    public PlayerAttack attackState;
+
+    public PlayerCounterAttackState counterAttackState;
+
+
+    public PlayerAimSwordState aimSwordState;
+    public PlayerCatchSwordState catchSwordState;
+
+    public PlayerBlackholeState blackHoleState;
+
+    public PlayerDeadState deadState;
     #endregion
 
-    #region  状态相关
-    public PlayerIdleState playerIdleState {get;private set;}
-    public PlayerMoveState playerMoveState {get;private set;}
-    public PlayerJumpForwordState playerJumpForwordState {get;private set;}
-    public PlayerJumpBackState playerJumpBackState {get;private set;}
 
-
-    #endregion
-
-    override protected void Awake()
+    protected override void Awake()
     {
-
         base.Awake();
-        stateMachine = new PlayerStateMachine();// 创建状态机
-      
-        playerIdleState = new PlayerIdleState(this, stateMachine, "Idle");// 创建Idle状态
-        playerMoveState = new PlayerMoveState(this, stateMachine, "Move");// 创建Move状态
-        playerJumpForwordState = new PlayerJumpForwordState(this, stateMachine, "JumpForword");// 创建JumpForword状态
-        playerJumpBackState = new PlayerJumpBackState(this, stateMachine, "JumpBack");// 创建JumpBack状态
+        stateMachine = new PlayerStateMachine();
+        idleState = new PlayerIdleState(this, stateMachine, "Idle");
+        moveState = new PlayerMoveState(this, stateMachine, "Move");
+        jumpState = new PlayerJumpState(this, stateMachine, "Jump");
+        airState  = new PlayerAirState(this, stateMachine, "Jump");
+        wallJumpState = new PlayerWallJumpState(this, stateMachine, "Jump");
+        dashState = new PlayerDashState(this, stateMachine, "Dash");
+        wallSlideState = new PlayerWallSlideState(this, stateMachine, "WallSlide");
+        attackState = new PlayerAttack(this, stateMachine, "Attack");
+        counterAttackState = new PlayerCounterAttackState(this, stateMachine, "CounterAttack");
 
+        aimSwordState = new PlayerAimSwordState(this, stateMachine, "AimSword");
+        catchSwordState = new PlayerCatchSwordState(this, stateMachine, "CatchSword");
+
+        blackHoleState = new PlayerBlackholeState(this, stateMachine, "Jump");
+
+        deadState = new PlayerDeadState(this, stateMachine, "Dead");
     }
-
-    override protected void Start()
+    protected override void Start()
     {
         base.Start();
-        stateMachine.InitState(playerIdleState);   // 初始化状态机
+        skill = SkillManager.Instance;
+        stateMachine.InitState(idleState);
+
+        defaultMoveSpeed = moveSpeed;
+        defultJumpForce = jumpForce;
+        defultDashSpeed = dashSpeed;
     }
-    override protected void Update()
+
+    protected override void Update()
     {
-         
         stateMachine.currentState.OnUpdate();
+        CheckDashInput();
+
     }
+
+    public override void SlowEnityBy(float _slowPercentage, float _slowDuration)
+    {
+        moveSpeed = moveSpeed * (1 - _slowPercentage);
+        jumpForce = jumpForce * (1 - _slowPercentage);
+        dashSpeed = dashSpeed * (1 - _slowPercentage);
+
+        animator.speed = animator.speed * (1-_slowPercentage);
+
+        Invoke("ReturnDefultSpeed", _slowDuration);
+    }
+
+    protected override void ReturnDefultSpeed()
+    {
+        base.ReturnDefultSpeed();
+        moveSpeed = defaultMoveSpeed;
+        jumpForce = defultJumpForce;
+        dashSpeed = defultDashSpeed;
+    }
+    public IEnumerator BusyFor(float waitTime)
+    {
+        
+        isBusy = true;
+        yield return new WaitForSeconds(waitTime);
+        isBusy = false;
+    }
+
+    //������� ����������״̬�����л���״̬��
+    public void CheckDashInput()
+    {
+        //��⵽ǽ�� ֱ�ӷ���
+        if (IsWallDetected())
+            return;
+
+        if (Input.GetKeyDown(KeyCode.Q) && SkillManager.Instance.dash.CanUseSkill())
+        {
+            
+            dashDir = Input.GetAxisRaw("Horizontal");
+            if (dashDir == 0)
+                dashDir = faceDir;
+            
+            stateMachine.ChangeState(dashState);
+        }
+    }
+    
+    //��⹥������������)�Ƿ����
+    public bool AnimatorTigger()
+    {
+        return stateMachine.currentState.triggerCalled = true;
+    }
+
+
+    public void AssignNewSword(GameObject newSword)
+    {
+        sword = newSword;
+    }
+    public void CatchSword()
+    {
+        stateMachine.ChangeState(catchSwordState);
+        Destroy(sword);
+    }
+
+    public override void Die()
+    {
+        base.Die();
+        stateMachine.ChangeState(deadState);
+    }
+    //public void ExitBlackholeState()
+    //{
+    //    stateMachine.ChangeState(airState);
+    //}
 }
