@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Player : Entity
 {
-    [Header("����ϸ��")]
+    [Header("攻击相关")]
     public float[] AttackMoment;
     public float counterTime;
    
     public bool isBusy;
-    [Header("�ƶ����")]
+    [Header("移动相关")]
     public float moveSpeed;
     public float jumpForce;
     public float swordReturnImpact;
@@ -19,12 +19,13 @@ public class Player : Entity
 
     [Header("Dash Info")]
 
-    [SerializeField] private float dashCoolDown;  //�����ȴʱ��
-    private float dashUsageTime;    //���ü�¼��ȴʱ��
-    public float dashSpeed;//����ٶ�
-    public float dashDuration;   //���ʱ��
+    [SerializeField] private float dashCoolDown;  //冲刺冷却时间
+    private float dashUsageTime;    //冲刺使用时间
+    public float dashSpeed;//冲刺速度
+
+    public float dashDuration;   //冲刺冷却时间
     private float defultDashSpeed;
-    public float dashDir { get;private set; }   //��̷��� (ר�ŵĳ�̷��򣬶����Ǽ������泯����)
+    public float dashDir { get;private set; }   //冲刺方向
     [Space]
 
     public bool canClone;
@@ -32,7 +33,7 @@ public class Player : Entity
     public SkillManager skill { get; private set; }
     public GameObject sword { get; private set; }
 
-    #region state ���
+    #region 状态相关
     public PlayerStateMachine stateMachine;
 
     public PlayerIdleState idleState;
@@ -125,10 +126,10 @@ public class Player : Entity
         isBusy = false;
     }
 
-    //������� ����������״̬�����л���״̬��
+    //检测冲刺输入
     public void CheckDashInput()
     {
-        //��⵽ǽ�� ֱ�ӷ���
+        //冲刺遇到墙壁
         if (IsWallDetected())
             return;
 
@@ -143,7 +144,7 @@ public class Player : Entity
         }
     }
     
-    //��⹥������������)�Ƿ����
+    //攻击动画结束
     public bool AnimatorTigger()
     {
         return stateMachine.currentState.triggerCalled = true;

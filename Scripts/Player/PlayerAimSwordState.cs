@@ -19,7 +19,8 @@ public class PlayerAimSwordState : PlayerState
     public override void OnExit()
     {
         base.OnExit();
-        //ºóÒ¡ Í¶ÖÀ¹ıºóµÈ´ı¼¸Ãë²Å¿ÉÒÔ ÒÆ¶¯
+        
+        //è§’è‰²ç¹å¿™ 0.2ç§’
         player.StartCoroutine("BusyFor", 0.2f);
     }
 

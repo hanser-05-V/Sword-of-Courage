@@ -7,7 +7,7 @@ public class Dash_Skill : SkillBase
     public override void UseSkill()
     {
         base.UseSkill();
-        //´´½¨¿ËÂ¡
+        
 
     }
     public override bool CanUseSkill()

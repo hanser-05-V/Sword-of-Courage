@@ -5,12 +5,12 @@ using UnityEngine.Events;
 public class Entity : MonoBehaviour
 {
 
-    [Header("»÷ÍËÏà¹Ø ")]
+    [Header("å‡»é€€ç›¸å…³ ")]
     [SerializeField] protected Vector2 knockBackDirection;
     [SerializeField] protected float knockTime;
     protected bool isKnocked;
 
-    [Header("Åö×²¼ì²â¾àÀëÏà¹Ø")]
+    [Header("ç¢°æ’æ£€æµ‹è·ç¦»ç›¸å…³")]
     public Transform attackCheckPos;
     public float attackRadius;
     [SerializeField] protected Transform groundCheck;
@@ -22,11 +22,11 @@ public class Entity : MonoBehaviour
     [Header("Dead Info")]
     [SerializeField] private float dispareTime;
 
-    //Ãæ³¯·½Ïò È·±£Ö»ÄÜµÃ²»ÄÜ¸Ä
+    //é¢æœæ–¹å‘ ç¡®ä¿åªèƒ½å¾—ä¸èƒ½æ”¹
     public int faceDir { get; private set; } = 1;
     protected bool isFaceRight = true;
 
-    #region ×é¼şÏà¹Ø
+    #region ç»„ä»¶ç›¸å…³
     public Animator animator { get; private set; }
     public EnitityFX fx { get; private set; }
     public Rigidbody2D rb { get; private set; }
@@ -69,23 +69,22 @@ public class Entity : MonoBehaviour
         yield return new WaitForSeconds(knockTimer);
         isKnocked = false;
     }
-    /// <summary>
-    /// ÉËº¦ÌØĞ§
-    /// </summary>
+
+    // ä¼¤å®³ç‰¹æ•ˆ
     public void DamagEffect()
     {
        // fx.StartCoroutine("FlashFx");
         StartCoroutine("HitKnocback", knockTime);
     }
 
-    #region ËÙ¶ÈÉèÖÃÏà¹Ø
+    #region é€Ÿåº¦è®¾ç½®ç›¸å…³
     public void SetZeroVelocity()
     {
         if (isKnocked)
             return;
         rb.velocity = new Vector2(0, 0);
     }
-    //ÉèÖÃËÙ¶È
+    //è®¾ç½®é€Ÿåº¦
     public void SetVelocity(float xVelocity, float yVelocity)
     {
         if (isKnocked)
@@ -99,8 +98,8 @@ public class Entity : MonoBehaviour
 
     #endregion
 
-    #region ½ÇÉ«·­×ª·½ÏòÏà¹Ø
-    //·­×ª·½·¨
+    #region è§’è‰²ç¿»è½¬æ–¹å‘ç›¸å…³
+    //ç¿»è½¬æ–¹æ³•
     public virtual void Filp()
     {
         faceDir = faceDir * -1;
@@ -110,7 +109,7 @@ public class Entity : MonoBehaviour
         onFlipped?.Invoke();
     }
 
-    //·­×ª¿ØÖÆÆ÷
+    //ç¿»è½¬æ§åˆ¶å™¨
     public virtual void FilpController(float xVelocity)
     {
         if (xVelocity > 0 && !isFaceRight)
@@ -121,19 +120,19 @@ public class Entity : MonoBehaviour
 
     #endregion
 
-    #region Åö×²¼ì²âÏà¹Ø
-    //ÊÇ·ñ¼ì²âµ½µØÃæ
+    #region ç¢°æ’æ£€æµ‹ç›¸å…³
+    //æ˜¯å¦æ£€æµ‹åˆ°åœ°é¢
     public bool IsGroundDetected()
     {
         return Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDis, whatIsGround);
     }
 
-    //ÊÇ·ñ¼ì²âµ½Ç½±Ú
+    //æ˜¯å¦æ£€æµ‹åˆ°å¢™å£
     public bool IsWallDetected()
     {
         return Physics2D.Raycast(walllCheck.position, Vector2.right * faceDir, walllChaeckDis, whatIsGround);
     }
-    //»®Ïß¼ì²â¾àÀë
+    //åˆ’çº¿æ£€æµ‹è·ç¦»
     protected virtual void OnDrawGizmos()
     {
         Gizmos.DrawLine(groundCheck.position, new Vector3(groundCheck.position.x, groundCheck.position.y - groundCheckDis));

@@ -23,13 +23,13 @@ public class PlayerAirState : PlayerState
     public override void OnUpdate()
     {
         base.OnUpdate();
-        //¼ì²âµ½Ç½±Ú ½øÈëÌùÇ½»¬¶¯×´Ì¬
+        //æ£€æµ‹åˆ°å¢™å£ è¿›å…¥è´´å¢™æ»‘åŠ¨çŠ¶æ€
         if(player.IsWallDetected())
             stateMachine.ChangeState(player.wallSlideState);
-        //¼ì²âµ½µØÃæ£¬½øÈë¾²Ö¹
+        //æ£€æµ‹åˆ°åœ°é¢ï¼Œè¿›å…¥é™æ­¢
         if (player.IsGroundDetected())
             stateMachine.ChangeState(player.idleState);
-        //¿ÕÖĞË®Æ½ÒÆ¶¯ËÙ¶ÈÎª Æ½Ê±µÄ80%
+        //ç©ºä¸­æ°´å¹³ç§»åŠ¨é€Ÿåº¦ä¸º å¹³æ—¶çš„80%
         if (xInput != 0)
             player.SetVelocity(xInput * player.moveSpeed * 0.8f, rb.velocity.y);
     }

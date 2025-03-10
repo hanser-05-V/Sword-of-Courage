@@ -10,13 +10,13 @@ public class PlayerState
 
     protected Rigidbody2D rb;
     protected string animatorBoolName;
-    //水平输入
+    //姘村钩杈撳叆
     protected float xInput;
     protected float yInput;
-    //每个状态的计时器，递减判断时间
+    //姣忎釜鐘舵�佺殑璁℃椂鍣紝閫掑噺鍒ゆ柇鏃堕棿
     protected float stateTimer;
 
-    //记录是否攻击结束 
+    //璁板綍鏄惁鏀诲嚮缁撴潫 
     public bool triggerCalled;
 
     public PlayerState(Player player,PlayerStateMachine stateMachine,string animatorBoolName)

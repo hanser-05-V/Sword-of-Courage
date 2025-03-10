@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerCounterAttackState : PlayerState
 {
-    //¼ÇÂ¼Åö×²µ½µÄËùÓĞÅö×²Æ÷
+    //è®°å½•ç¢°æ’åˆ°çš„æ‰€æœ‰ç¢°æ’å™¨
     private Collider2D[] collider2Ds;
 
     private bool canCreatClone;
@@ -40,7 +40,7 @@ public class PlayerCounterAttackState : PlayerState
             {
                 if (hitInfo.GetComponent<Enemy>().IsBeStunned())
                 {
-                    stateTimer = 10;//¶¨ÒåÒ»¸öºÜ´óµÄÖµ£¬È·±£ÊÇµ¯·´³É¹¦ºóÍË³ö
+                    stateTimer = 10;//å®šä¹‰ä¸€ä¸ªå¾ˆå¤§çš„å€¼ï¼Œç¡®ä¿æ˜¯å¼¹åæˆåŠŸåé€€å‡º
                     player.animator.SetBool("SuccessCounterAttack",true);
 
                     if(canCreatClone)

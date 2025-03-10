@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlayerAttack : PlayerState
 {
     public int attackCounter {  get; private set; }
-    //¹¥»÷Ê±¿ÌµÄ·½Ïò
+    //æ”»å‡»æ—¶åˆ»çš„æ–¹å‘
     private float attackDic;
-    //±íÊ¾Á½´Î¹¥»÷Ö®¼äÔÊĞíµÄ×î¶ÌÊ±¼ä¼ä¸ô
+    //è¡¨ç¤ºä¸¤æ¬¡æ”»å‡»ä¹‹é—´å…è®¸çš„æœ€çŸ­æ—¶é—´é—´éš”
     protected float attckCool = 1f;
-    //¼ÇÂ¼ÉÏ´Î¹¥»÷Ê±¿ÌµÄÊ±¼ä£¨Time.time È«¾ÖÊ±¼äµÄÀúÊ·¿ìÕÕ£©
+    //è®°å½•ä¸Šæ¬¡æ”»å‡»æ—¶åˆ»çš„æ—¶é—´ï¼ˆTime.time å…¨å±€æ—¶é—´çš„å†å²å¿«ç…§ï¼‰
     protected float lastTimeAttackedTime;
     public PlayerAttack(Player player, PlayerStateMachine stateMachine, string animatorBoolName) : base(player, stateMachine, animatorBoolName)
     {
@@ -20,36 +20,36 @@ public class PlayerAttack : PlayerState
         base.OnEntry();
         triggerCalled = false;
 
-        xInput = 0; // ºóĞøÊ¹ÓÃ ¿ÉÒÔµÃµ½µÄxInput²»ÊÇĞİÏ¢µÄÖµ£¬½øÈëÊ±ºò½øĞĞÖØÖÃ
+        xInput = 0; // åç»­ä½¿ç”¨ å¯ä»¥å¾—åˆ°çš„xInputä¸æ˜¯ä¼‘æ¯çš„å€¼ï¼Œè¿›å…¥æ—¶å€™è¿›è¡Œé‡ç½®
 
-        //¼ÆÊı³¬¹ı2 »òÕß µ±Ç°Ê±¼ä ´óÓÚ ÉÏ´Î¹¥»÷Ê±¼ä¼ÓÉÏÀäÈ´Ê±¼ä
-        //Ê¹ÓÃÈ«¾ÖÊ±¼äTime.Time£¬µÃµ½ÀÛ¼ÆÊÇÊ±¼ä²î 
+        //è®¡æ•°è¶…è¿‡2 æˆ–è€… å½“å‰æ—¶é—´ å¤§äº ä¸Šæ¬¡æ”»å‡»æ—¶é—´åŠ ä¸Šå†·å´æ—¶é—´
+        //ä½¿ç”¨å…¨å±€æ—¶é—´Time.Timeï¼Œå¾—åˆ°ç´¯è®¡æ˜¯æ—¶é—´å·® 
         if (attackCounter > 2 || Time.time>= lastTimeAttackedTime + attckCool)
         {
             attackCounter = 0;
         }
         player.animator.SetInteger("attackCounter", attackCounter);
-        //Éè¼Æ¹¥»÷ÑÓ³ÙÊ±¼ä
+        //è®¾è®¡æ”»å‡»å»¶è¿Ÿæ—¶é—´
         stateTimer = 0.1f;
 
-        //Ä¬ÈÏ¹¥»÷·½Ïò¾ÍÊÇÁ³³¯Ïò
+        //é»˜è®¤æ”»å‡»æ–¹å‘å°±æ˜¯è„¸æœå‘
         attackDic = player.faceDir;
 
-        if(xInput !=0)//Èç¹ûÓĞÊäÈë¸ù¾İÊäÈë¸Ä±ä·½Ïò
+        if(xInput !=0)//å¦‚æœæœ‰è¾“å…¥æ ¹æ®è¾“å…¥æ”¹å˜æ–¹å‘
             attackDic = xInput;
-        //Éè¼ÆÃ¿¸ö¹¥»÷¶¯×÷Ê±ºòµÄËÙ¶È£¬½áºÏÑÓ³ÙÊ±¼ä£¬À´²úÉúÎ»ÒÆ
-        //¸ü¼Ó´ËÊ±µÄ¹¥»÷·½ÏòÀ´¹¥»÷
+        //è®¾è®¡æ¯ä¸ªæ”»å‡»åŠ¨ä½œæ—¶å€™çš„é€Ÿåº¦ï¼Œç»“åˆå»¶è¿Ÿæ—¶é—´ï¼Œæ¥äº§ç”Ÿä½ç§»
+        //æ›´åŠ æ­¤æ—¶çš„æ”»å‡»æ–¹å‘æ¥æ”»å‡»
         player.SetVelocity(player.AttackMoment[attackCounter] * attackDic, rb.velocity.y);
     }
 
     public override void OnExit()
     {
         base.OnExit();
-        //¹¥»÷¼ÆÊıÔö¼Ó
+        //æ”»å‡»è®¡æ•°å¢åŠ 
         attackCounter++;
-        //¼ÇÂ¼ÉÏ´Î¹¥»÷µÄË²Ê±Ê±¿Ì
+        //è®°å½•ä¸Šæ¬¡æ”»å‡»çš„ç¬æ—¶æ—¶åˆ»
         lastTimeAttackedTime = Time.time;
-        //¿ªÆôĞ­³Ì£¬ÈÃÆäËû×´Ì¬µÈ´ıµ±Ç°¹¥»÷ºóÒ¡½áÊøÔÙÖ´ĞĞ
+        //å¼€å¯åç¨‹ï¼Œè®©å…¶ä»–çŠ¶æ€ç­‰å¾…å½“å‰æ”»å‡»åæ‘‡ç»“æŸå†æ‰§è¡Œ
         player.StartCoroutine("BusyFor", 0.15f);
     }
 
@@ -57,7 +57,7 @@ public class PlayerAttack : PlayerState
     {
         base.OnUpdate();
 
-        //Ã¿¸ö×´Ì¬µÄ stateTime³õÊ¼ÖµÎª0 ¶øÇÒ»áµİ¼õ
+        //æ¯ä¸ªçŠ¶æ€çš„ stateTimeåˆå§‹å€¼ä¸º0 è€Œä¸”ä¼šé€’å‡
         if (stateTimer < 0)
             player.SetZeroVelocity();
 
