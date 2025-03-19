@@ -336,6 +336,98 @@ SortingGroup:
   m_SortingLayerID: -1602831395
   m_SortingLayer: 6
   m_SortingOrder: 0
+--- !u!1 &498688957
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 498688958}
+  - component: {fileID: 498688959}
+  m_Layer: 0
+  m_Name: PlayerController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &498688958
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 498688957}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1863518761}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &498688959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 498688957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7508e2df5213e34c8a649bac2ae0f83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 1982409968}
+--- !u!1 &554185956
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 554185957}
+  - component: {fileID: 554185958}
+  m_Layer: 0
+  m_Name: FSM
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &554185957
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 554185956}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1863518761}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &554185958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 554185956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4470c3be27ab939419f40d1ac1f06a9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInfo:
+    moveSpeed: 5
+    jumpForce: 8
+  playerStats: {fileID: 11400000, guid: aca49a4e6888f0947889a02f2fdccdd2, type: 2}
+  playerController: {fileID: 498688959}
 --- !u!1 &613066653
 GameObject:
   m_ObjectHideFlags: 0
@@ -1418,7 +1510,6 @@ GameObject:
   - component: {fileID: 1863518761}
   - component: {fileID: 1863518764}
   - component: {fileID: 1863518763}
-  - component: {fileID: 1863518762}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1434,47 +1525,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1863518760}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.53, y: -12.95, z: 0}
+  m_LocalPosition: {x: -19.53, y: -7.4, z: 0}
   m_LocalScale: {x: 8, y: 8, z: 1}
   m_Children:
   - {fileID: 1982409967}
+  - {fileID: 554185957}
+  - {fileID: 498688958}
   m_Father: {fileID: 456128843}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1863518762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1863518760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1c20fdc561ea4d419c59055796d4c7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  knockBackDirection: {x: 0, y: 0}
-  knockTime: 0
-  attackCheckPos: {fileID: 0}
-  attackRadius: 0
-  groundCheck: {fileID: 0}
-  groundCheckDis: 0
-  walllCheck: {fileID: 0}
-  walllChaeckDis: 0
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 0
-  dispareTime: 0
-  AttackMoment: []
-  counterTime: 0
-  isBusy: 0
-  moveSpeed: 0
-  jumpForce: 0
-  swordReturnImpact: 0
-  dashCoolDown: 0
-  dashSpeed: 0
-  dashDuration: 0
-  canClone: 0
 --- !u!50 &1863518763
 Rigidbody2D:
   serializedVersion: 4
@@ -1495,7 +1554,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!70 &1863518764
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
