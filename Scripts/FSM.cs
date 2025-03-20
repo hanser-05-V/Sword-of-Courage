@@ -4,10 +4,11 @@ using UnityEngine;
 
 public enum StateType //状态枚举
 {
-    idle,
-    move,jump,
-    attack1,attack2,attaack3,
-    died, dash,
+    Idle,
+    Move,Jump,
+    Attack1,Attack2,Attack3,
+    Died, Dash,
+    Air,Ground,
 }
 
 [Serializable]
@@ -26,10 +27,13 @@ public class FSM : MonoBehaviour //状态机基类
     void Start()
     {
         //加入状态
-        stateDic.Add(StateType.idle, new IdleState(playerController));
-        stateDic.Add(StateType.move, new MoveState(playerController));
-        stateDic.Add(StateType.jump,new PlayerJumpState(playerController));
-        ChangeState(StateType.idle); //初始默认为idle状态
+        stateDic.Add(StateType.Idle, new IdleState(playerController));
+        stateDic.Add(StateType.Move, new MoveState(playerController));
+        stateDic.Add(StateType.Jump,new PlayerJumpState(playerController));
+        stateDic.Add(StateType.Air,new PlayerAirState(playerController));
+        stateDic.Add(StateType.Ground,new PlayerGroundState(playerController));
+        stateDic.Add(StateType.Dash,new PlayerDashState(playerController));
+        ChangeState(StateType.Air); //初始默认为air状态
 
     }
     void Update()

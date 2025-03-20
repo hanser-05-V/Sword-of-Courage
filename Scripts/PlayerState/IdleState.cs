@@ -2,34 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IdleState : IState
+public class IdleState : PlayerGroundState ,IState
 {
 
-    private PlayerController playerController;
-
-    public IdleState(PlayerController playerController)
+    public IdleState(PlayerController playerController) : base(playerController)
     {
-        this.playerController = playerController; 
+        base.playerController = playerController;
     }
-    public void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
+    public override void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
     {
         playerController.Play("playerIdle");
-        // playerController.SetBool("Idle",true);
-        Debug.Log("进入Idle状态");
+      
     }
 
-    public void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
+    public override void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
     {
-        Debug.Log("退出Idle状态");
+ 
     }
     
 
-    public void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
+    public override void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
     {
+        base.Onupdate(playerInfo, playerStats);
         if(playerController.xInput!= 0)//如果有输入
         {
-            Debug.Log(playerController.xInput);
-            playerController.ChangeState(StateType.move);
+            playerController.ChangeState(StateType.Move);
         }
     }
 }

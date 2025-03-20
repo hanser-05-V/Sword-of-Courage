@@ -3,40 +3,40 @@ using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
 using UnityEngine;
 
-public class MoveState : IState
+public class MoveState : PlayerGroundState, IState
 {
 
-    private PlayerController playerController;
-
-    public MoveState(PlayerController playerController)
+    public MoveState(PlayerController playerController) : base(playerController)
     {
-        this.playerController = playerController;
+        base.playerController = playerController;
     }
-    public void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
+
+    public override void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
     {
 
         Debug.Log("进入移动状态");
         playerController.Play("playerMove");
         // playerController.SetBool("Move",true);
-  
+
     }
 
-    public void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
+    public  override void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
     {
         Debug.Log("退出移动状态");
     }
 
-    public void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
+    public override void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
     {
+        base.Onupdate(playerInfo, playerStats);
         playerController.ChangeXvelocity(playerController.xInput * playerInfo.moveSpeed); //设置x轴速度
 
         if (playerController.xInput == 0) //如果x轴速度为0，则播放空闲动画
         {
-            playerController.ChangeState(StateType.idle);
+            playerController.ChangeState(StateType.Idle);
         }
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Space)) //跳跃 切换状态
         {
-            playerController.ChangeState(StateType.jump);
+            playerController.ChangeState(StateType.Jump);
         }
     }
 }

@@ -7,7 +7,6 @@ using UnityEngine.Analytics;
 public interface IPhysicsSystem
 {
     void ApplyJumpForece(float jumpForce , ForceMode2D forceMode);//添加跳跃力
-    bool IsGrounded();//判断是否在地面上
 
     void SetVelocity(float xVelocity, float yVelocity);
 
@@ -24,7 +23,7 @@ public class UnityPhysicsSystem : MonoBehaviour , IPhysicsSystem
 
     private Rigidbody2D rb;
 
-    private bool isGrounded;
+
 
     void Awake()
     {
@@ -34,12 +33,6 @@ public class UnityPhysicsSystem : MonoBehaviour , IPhysicsSystem
     {
         rb.AddForce(new Vector2(0,jumpForce), forceMode);
     }
-
-    public bool IsGrounded() //判断是否在地面上
-    {
-        return isGrounded;
-    }
-
 
     public Rigidbody2D GetRigidbody2D()
     {

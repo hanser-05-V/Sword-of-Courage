@@ -20,6 +20,7 @@ public class PlayerJumpState : IState
         playerController.Play("JumpToDown");
 
         playerController.ApplyJumpForece(playerInfo.jumpForce,ForceMode2D.Impulse);
+        // playerController.ChangeYvelocity(playerInfo.jumpForce);
     }
 
     public void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
@@ -30,6 +31,11 @@ public class PlayerJumpState : IState
     public void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
     {
         playerController.SetFolat("Yvelocity",playerController.GetYVelocity());
-        Debug.Log(playerController.GetYVelocity());
+
+        if(playerController.GetYVelocity()<0)
+        {
+            playerController.ChangeState(StateType.Air);
+        }
+
     }
 }

@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 427645804}
   - component: {fileID: 427645803}
   - component: {fileID: 427645805}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bk leftDown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -656,14 +656,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 498688957}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1982409967}
+  - {fileID: 1737007035}
+  - {fileID: 1564038207}
   m_Father: {fileID: 1863518761}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &498688959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -676,6 +678,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7508e2df5213e34c8a649bac2ae0f83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundCheck: {fileID: 1737007035}
+  groundChenkDistance: 1.29
+  wallCheck: {fileID: 1564038207}
+  wallCheckDistance: 1.44
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 128
   xInput: 0
   fsm: {fileID: 554185958}
   _animationSystem: {fileID: 1982409970}
@@ -724,8 +733,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInfo:
-    moveSpeed: 15
-    jumpForce: 100
+    moveSpeed: 45
+    jumpForce: 20
   playerStats: {fileID: 11400000, guid: aca49a4e6888f0947889a02f2fdccdd2, type: 2}
   playerController: {fileID: 498688959}
 --- !u!1 &613066653
@@ -783,7 +792,7 @@ GameObject:
   - component: {fileID: 792358154}
   - component: {fileID: 792358153}
   - component: {fileID: 792358155}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ForgroundBkLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1264,7 +1273,7 @@ GameObject:
   - component: {fileID: 1369166229}
   - component: {fileID: 1369166228}
   - component: {fileID: 1369166230}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bk Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1643,6 +1652,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1564038206
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1564038207}
+  m_Layer: 0
+  m_Name: WallCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1564038207
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564038206}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.248, y: -0.071, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 498688958}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1676214383
 GameObject:
   m_ObjectHideFlags: 0
@@ -1652,7 +1691,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1676214384}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DungeonPack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1667,13 +1706,43 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1676214383}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -24.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 792358152}
   - {fileID: 427645802}
   - {fileID: 1369166227}
   m_Father: {fileID: 456128843}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1737007034
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1737007035}
+  m_Layer: 0
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1737007035
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737007034}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.503, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 498688958}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1820515776
@@ -1761,10 +1830,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 5
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3.5
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
