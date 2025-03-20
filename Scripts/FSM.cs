@@ -35,6 +35,8 @@ public class FSM : MonoBehaviour //状态机基类
     void Update()
     {
         currentState?.Onupdate(playerInfo,playerStats); //把当前状态的update方法调用
+
+      
     }
 
     public void ChangeState(StateType stateType) // 切换状态方法

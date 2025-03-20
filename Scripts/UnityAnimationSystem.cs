@@ -17,8 +17,13 @@ public class UnityAnimationSystem :  MonoBehaviour , IAnimationSystem
 
     }  
 
-    public void SetBool(string parameterName, bool value) //设置参数接口
+    public void SetBool(string parameterName, bool value) //设置bool参数接口
     {
         _animator.SetBool(parameterName, value);
+    }
+
+    public void SetFloat(string parameterName, float value) //设置浮点数参数接口
+    {
+        _animator.SetFloat(parameterName, value);
     }
 }

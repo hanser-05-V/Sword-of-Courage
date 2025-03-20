@@ -14,6 +14,7 @@ public class IdleState : IState
     public void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
     {
         playerController.Play("playerIdle");
+        // playerController.SetBool("Idle",true);
         Debug.Log("进入Idle状态");
     }
 

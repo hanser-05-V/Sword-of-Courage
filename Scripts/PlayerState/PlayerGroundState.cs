@@ -1,25 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel.Design.Serialization;
 using UnityEngine;
 
-public class MoveState : IState
+public class PlayerGroundState : IState
 {
-
     private PlayerController playerController;
 
-    public MoveState(PlayerController playerController)
+    public PlayerGroundState(PlayerController playerController)
     {
         this.playerController = playerController;
     }
     public void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
     {
-
-        Debug.Log("进入移动状态");
-        playerController.Play("playerMove");
-        playerController.ChangeXvelocity(playerController.xInput * playerInfo.moveSpeed);
-
-  
+        
     }
 
     public void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
@@ -29,9 +22,8 @@ public class MoveState : IState
 
     public void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            playerController.ChangeState(StateType.jump);
-        }
+       
     }
+
+  
 }

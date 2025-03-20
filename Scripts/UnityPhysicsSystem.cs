@@ -6,7 +6,7 @@ using UnityEngine.Analytics;
 
 public interface IPhysicsSystem
 {
-    void ApplyJumpForece();//添加跳跃力
+    void ApplyJumpForece(float jumpForce , ForceMode2D forceMode);//添加跳跃力
     bool IsGrounded();//判断是否在地面上
 
     void SetVelocity(float xVelocity, float yVelocity);
@@ -14,6 +14,7 @@ public interface IPhysicsSystem
     void ChangeXvelocity(float xVelocity); //改变x方向速度
     void ChangeYvelocity(float yVelocity); //改变y方向速度
 
+    float GetYVelocity(); //获取y方向速度
     void SetZeroVelocity();
 }
 
@@ -29,9 +30,9 @@ public class UnityPhysicsSystem : MonoBehaviour , IPhysicsSystem
     {
         rb = GetComponent<Rigidbody2D>();
     }
-    public void ApplyJumpForece() //添加跳跃力
+    public void ApplyJumpForece(float jumpForce, ForceMode2D forceMode) //添加跳跃力
     {
-       
+        rb.AddForce(new Vector2(0,jumpForce), forceMode);
     }
 
     public bool IsGrounded() //判断是否在地面上
@@ -64,6 +65,11 @@ public class UnityPhysicsSystem : MonoBehaviour , IPhysicsSystem
 
     {
        rb.velocity = new Vector2(rb.velocity.x, yVelocity);
+    }
+
+    public float GetYVelocity()
+    {
+        return rb.velocity.y;
     }
 
     #endregion
