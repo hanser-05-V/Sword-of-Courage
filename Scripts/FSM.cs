@@ -28,7 +28,7 @@ public class FSM : MonoBehaviour //状态机基类
         //加入状态
         stateDic.Add(StateType.idle, new IdleState(playerController));
         stateDic.Add(StateType.move, new MoveState(playerController));
-
+        stateDic.Add(StateType.jump,new PlayerJumpState(playerController));
         ChangeState(StateType.idle); //初始默认为idle状态
 
     }

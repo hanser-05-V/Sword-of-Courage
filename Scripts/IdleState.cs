@@ -13,8 +13,8 @@ public class IdleState : IState
     }
     public void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
     {
-        Debug.Log("进入Idle状态");
         playerController.Play("playerIdle");
+        Debug.Log("进入Idle状态");
     }
 
     public void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
@@ -25,8 +25,9 @@ public class IdleState : IState
 
     public void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(playerController.xInput!= 0)//如果有输入
         {
+            Debug.Log(playerController.xInput);
             playerController.ChangeState(StateType.move);
         }
     }
