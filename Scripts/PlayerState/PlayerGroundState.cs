@@ -28,6 +28,10 @@ public class PlayerGroundState : IState // 地面状态 公共方法基类
         {
             playerController.ChangeState(StateType.Jump);
         }
-        
+        if(!playerController.IsGroundDetected()) //没有检测到地面 切换到空中状态 （空中冲刺）
+        {
+            Debug.Log("切换到空中状态");
+            playerController.ChangeState(StateType.Air);
+        }
     }
 }

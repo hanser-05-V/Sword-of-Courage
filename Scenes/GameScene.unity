@@ -685,10 +685,15 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
+  physicsSystem: {fileID: 1863518765}
   xInput: 0
   fsm: {fileID: 554185958}
   _animationSystem: {fileID: 1982409970}
-  physicsSystem: {fileID: 1863518765}
+  dashSpeed: 80
+  dashDruation: 0
+  defalutDashDruation: 0.25
+  dashCooldown: 2
+  dashTimer: 0
 --- !u!1 &554185956
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,8 +738,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInfo:
-    moveSpeed: 45
-    jumpForce: 20
+    moveSpeed: 50
+    jumpForce: 30
   playerStats: {fileID: 11400000, guid: aca49a4e6888f0947889a02f2fdccdd2, type: 2}
   playerController: {fileID: 498688959}
 --- !u!1 &613066653
@@ -1836,7 +1841,7 @@ Rigidbody2D:
   m_GravityScale: 3.5
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!70 &1863518764

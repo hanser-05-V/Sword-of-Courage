@@ -4,29 +4,30 @@ using UnityEngine;
 
 public class PlayerAirState : IState //玩家空中状态
 {
-    private PlayerController playerController;
+    protected PlayerController playerController;
 
     public PlayerAirState(PlayerController playerController)
     {
         this.playerController = playerController;
     }
   
-    public void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
+    public virtual void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
     {
-        
+        playerController.Play("JumpToDown");
     }
 
-    public void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
+    public virtual void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
     {
       
     }
 
-    public void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
+    public virtual void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
     {
+
+        playerController.SetFolat("Yvelocity",playerController.GetYVelocity());
 
         if(playerController.IsGroundDetected()) //检测到地面 变为静止状态
         {
-            Debug.Log("空中进入地面");
             playerController.ChangeState(StateType.Idle);
         }
 

@@ -14,7 +14,9 @@ public class PlayerDashState : IState
 
     public void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
     {
-        
+        playerController.Play("playerDash");
+
+        playerController.SetVelocity(playerController.dashDir * playerController.dashSpeed, 0f);
     }
 
     public void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
@@ -24,6 +26,10 @@ public class PlayerDashState : IState
 
     public void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
     {
-        
+        if(playerController.dashDruation <=0)
+        {
+            playerController.ChangeState(StateType.Idle);
+        }
+       
     }
 }

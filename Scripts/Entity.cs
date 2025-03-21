@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEditor;
 using UnityEngine;
 
@@ -21,9 +22,9 @@ public class Entity : MonoBehaviour // 实体类的公共行为
     private bool isFacingRight = true; // 角色的默认朝向，true为右，false为左
 
     [HideInInspector] public float xInput; // 角色的水平方向输入值
-    private void Update()
+    protected  virtual void Update()
     {
-        xInput = Input.GetAxisRaw("Horizontal");
+        xInput = Input.GetAxisRaw("Horizontal"); // 获取水平方向输入值
         FlipController(xInput);
     }
 

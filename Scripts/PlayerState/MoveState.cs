@@ -13,16 +13,13 @@ public class MoveState : PlayerGroundState, IState
 
     public override void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
     {
-
-        Debug.Log("进入移动状态");
         playerController.Play("playerMove");
         // playerController.SetBool("Move",true);
-
     }
 
     public  override void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
     {
-        Debug.Log("退出移动状态");
+       
     }
 
     public override void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
@@ -34,9 +31,7 @@ public class MoveState : PlayerGroundState, IState
         {
             playerController.ChangeState(StateType.Idle);
         }
-        if(Input.GetKeyDown(KeyCode.Space)) //跳跃 切换状态
-        {
-            playerController.ChangeState(StateType.Jump);
-        }
+        
+        
     }
 }
