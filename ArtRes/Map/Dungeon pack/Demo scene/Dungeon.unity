@@ -11283,7 +11283,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_CameraDistance: 379.19
+  m_CameraDistance: 85
   m_DeadZoneWidth: 0.32
   m_DeadZoneHeight: 0.36
   m_DeadZoneDepth: 0
@@ -20628,7 +20628,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2111196459}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 353.7, y: -37.8, z: -379.19}
+  m_LocalPosition: {x: 347.28, y: -45.23, z: -85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1099111557}
@@ -21076,7 +21076,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2138418272}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 353.7, y: -37.8, z: -379.19}
+  m_LocalPosition: {x: 347.28, y: -45.23, z: -85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1177744134}
@@ -21309,11 +21309,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1165511027432822371, guid: 13a78c85e91f85a41a25330a6e48a711, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 353.7
+      value: 347.28
       objectReference: {fileID: 0}
     - target: {fileID: 1165511027432822371, guid: 13a78c85e91f85a41a25330a6e48a711, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -37.8
+      value: -45.23
       objectReference: {fileID: 0}
     - target: {fileID: 1165511027432822371, guid: 13a78c85e91f85a41a25330a6e48a711, type: 3}
       propertyPath: m_LocalPosition.z
@@ -22748,7 +22748,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &5396618340367097608
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,6 +27,15 @@ public class Player_Test : MonoBehaviour
         if(xInput != 0)
         {
             rb.velocity = new Vector2(xInput * moveSpeed, rb.velocity.y);
+            animator.SetBool("Idle", false);
+            animator.SetBool("Move",true);
+            
+        }
+        else
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+            animator.SetBool("Idle", true);
+            animator.SetBool("Move", false);
         }
         if(Input.GetKeyDown(KeyCode.Space))
         {
