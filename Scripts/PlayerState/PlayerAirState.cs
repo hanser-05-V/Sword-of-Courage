@@ -13,7 +13,7 @@ public class PlayerAirState : IState //玩家空中状态
   
     public virtual void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
     {
-        playerController.Play("JumpToDown");
+        
     }
 
     public virtual void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
@@ -23,9 +23,8 @@ public class PlayerAirState : IState //玩家空中状态
 
     public virtual void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
     {
-
-        playerController.SetFolat("Yvelocity",playerController.GetYVelocity());
-
+        // playerController.SetFloat("Yvelocity",playerController.rb.velocity.y);
+        // playerController.SetFolat("Yvelocity",playerController.GetYVelocity());
         if(playerController.IsGroundDetected()) //检测到地面 变为静止状态
         {
             playerController.ChangeState(StateType.Idle);
@@ -33,7 +32,9 @@ public class PlayerAirState : IState //玩家空中状态
 
         if(playerController.xInput != 0) //空中水平方向有输入
         {
-            playerController.SetVelocity(playerInfo.moveSpeed * playerController.xInput * 0.8f, playerController.GetYVelocity()); //空中速度是原来80% 
+            // playerController.SetVelocity(playerInfo.moveSpeed * playerController.xInput * 0.8f, playerController.GetYVelocity()); //空中速度是原来80% 
+
+            playerController.SetVecolity(playerInfo.moveSpeed * playerController.xInput * 0.8f, playerController.rb.velocity.y);
         }
     }
 

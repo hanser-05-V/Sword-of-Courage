@@ -15,9 +15,10 @@ public class Entity : MonoBehaviour // 实体类的公共行为
     public float wallCheckDistance; // 墙壁检测距离
     public LayerMask groundLayer; // 地面层
 
-    
-    
-    [SerializeField] private UnityPhysicsSystem physicsSystem; // 使用接口来访问物理系统
+    [Header("组件相关")]
+    [SerializeField] protected FSM fsm; // 状态机组件
+    [SerializeField] protected Animator animator; // 动画组件
+    public Rigidbody2D rb; // 刚体组件
     
     protected int facing = 1; // 角色的朝向，1为右，-1为左
     private bool isFacingRight = true; // 角色的默认朝向，true为右，false为左
@@ -25,49 +26,71 @@ public class Entity : MonoBehaviour // 实体类的公共行为
     [HideInInspector] public float xInput; // 角色的水平方向输入值
     protected  virtual void Update()
     {
-        xInput = Input.GetAxisRaw("Horizontal"); // 获取水平方向输入值
-        FlipController(xInput);
+        xInput = Input.GetAxisRaw("Horizontal"); // 获取水平方向输入值 
     }
-
     #region 速度相关方法
-
-    public void ApplyJumpForece(float jumpForce,ForceMode2D forceMode) //添加跳跃力
+    public void SetVecolity(float xVelocity, float yVelocity)//设置速度
     {
-        physicsSystem.ApplyJumpForece(jumpForce,forceMode);
-    }
-    public void SetVelocity(float xVelocity, float yVelocity) //设置速度
-    {
-        physicsSystem.SetVelocity(xVelocity, yVelocity);
+        rb.velocity = new Vector2(xVelocity, yVelocity);
         FlipController(xVelocity);
-
     }
 
-    public void SetZeroVelocity()//设置速度为0
+    public void SetZeroVecolity()//设置速度为0
     {
-        physicsSystem.SetZeroVelocity();
+        rb.velocity = new Vector2(0,0);
     }
+    // public void ApplyJumpForece(float jumpForce,ForceMode2D forceMode) //添加跳跃力
+    // {
+    //     physicsSystem.ApplyJumpForece(jumpForce,forceMode);
+    // }
+    // public void SetVelocity(float xVelocity, float yVelocity) //设置速度
+    // {
+    //     physicsSystem.SetVelocity(xVelocity, yVelocity);
+    //     FlipController(xVelocity);
 
-    public void ChangeXvelocity(float xVelocity) //设置x轴速度
-    {
-        physicsSystem.ChangeXvelocity(xVelocity);
-    }
-    public void ChangeYvelocity(float yVelocity) //设置y轴速度
-    {
-        physicsSystem.ChangeYvelocity(yVelocity);
-    }
+    // }
 
-    public Rigidbody2D GetRigidbody2D() //获取刚体
-    {
-        return physicsSystem.GetRigidbody2D();
-    }
+    // public void SetZeroVelocity()//设置速度为0
+    // {
+    //     physicsSystem.SetZeroVelocity();
+    // }
 
-    public float GetYVelocity() //获取y轴速度
-    {
-        return physicsSystem.GetYVelocity();
-    }
+    // public void ChangeXvelocity(float xVelocity) //设置x轴速度
+    // {
+    //     physicsSystem.ChangeXvelocity(xVelocity);
+    // }
+    // public void ChangeYvelocity(float yVelocity) //设置y轴速度
+    // {
+    //     physicsSystem.ChangeYvelocity(yVelocity);
+    // }
+
+    // public Rigidbody2D GetRigidbody2D() //获取刚体
+    // {
+    //     return physicsSystem.GetRigidbody2D();
+    // }
+
+    // public float GetYVelocity() //获取y轴速度
+    // {
+    //     return physicsSystem.GetYVelocity();
+    // }
 
     #endregion
-  
+    #region 动画相关方法  
+    public virtual void ChangeState(StateType stateType) // 切换状态方法
+    {
+        fsm.ChangeState(stateType);
+    }
+    public virtual void SetBool(string parameterName, bool value) //设置bool
+    {
+        animator.SetBool(parameterName, value);        
+    }
+
+    public virtual void SetFloat(string parameterName, float value)//设置float
+    {
+        animator.SetFloat(parameterName, value);
+    }
+    #endregion
+
     #region 角色翻转
     public void Flip()
     {

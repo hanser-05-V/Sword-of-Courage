@@ -4,23 +4,13 @@ using UnityEngine;
 
 public class PlayerAnimatorTrigger : MonoBehaviour
 {
-    
+    [Header("组件相关")]
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private float downForce = 5;
+    [SerializeField] private PlayerController playerController;
 
-    [SerializeField] private float jumpForce = 1;
 
-    private void AddDownForce()
+    private void MoveBeforeToMove()
     {
-        Debug.Log("AddDownForce");
-
-        rb.velocity = new Vector2(rb.velocity.x , -downForce);
-
-    }
-
-    private void AddJumpForce()
-    {
-        Debug.Log("111");
-        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        playerController.ChangeState(StateType.Move);
     }
 }

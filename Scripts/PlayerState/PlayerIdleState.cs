@@ -6,30 +6,29 @@ using UnityEngine;
 public class PlayerIdleState : PlayerGroundState ,IState
 {
 
-    public PlayerIdleState(PlayerController playerController) : base(playerController)
+    public PlayerIdleState(PlayerController playerController,string animatorBoolName) : base(playerController,animatorBoolName)
     {
-        base.playerController = playerController;
+        // base.playerController = playerController;
     }
     public override void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
     {
-        playerController.Play("playerIdle");
-        playerController.ChangeXvelocity(0);
+        base.OnEnter(playerInfo, playerStats);
+        playerController.SetZeroVecolity();
     }
 
     public override void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
     {
- 
+        base.OnExit(playerInfo, playerStats);
     }
-    
+
 
     public override void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
     {
         base.Onupdate(playerInfo, playerStats);
-       
+
         if(playerController.xInput!= 0)//如果有输入
         {
-          
-            playerController.ChangeState(StateType.Move);
+            playerController.ChangeState(StateType.MoveBefore);
         }
     }
 }

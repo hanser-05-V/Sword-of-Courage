@@ -14,9 +14,9 @@ public class PlayerDashState : IState
 
     public void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
     {
-        playerController.Play("playerDash");
-
-        playerController.SetVelocity(playerController.dashDir * playerController.dashSpeed, 0f);
+       
+        playerController.SetVecolity(playerController.dashSpeed * playerController.dashDir,0f);
+ 
     }
 
     public void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)

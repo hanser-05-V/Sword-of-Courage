@@ -225,6 +225,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &77431468 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5611151462020632357, guid: 684e9efbfa48ef64498e900eb9d826ec, type: 3}
+  m_PrefabInstance: {fileID: 5611151462229748890}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7508e2df5213e34c8a649bac2ae0f83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &93908726
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,9 +378,25 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1959105211211617768, guid: 13a78c85e91f85a41a25330a6e48a711, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 532935130}
+    - target: {fileID: 1959105211211617768, guid: 13a78c85e91f85a41a25330a6e48a711, type: 3}
       propertyPath: playerInfo.jumpForce
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 2447541711667395647, guid: 13a78c85e91f85a41a25330a6e48a711, type: 3}
+      propertyPath: m_Name
+      value: PlayerController_Test
+      objectReference: {fileID: 0}
+    - target: {fileID: 4362521633532139123, guid: 13a78c85e91f85a41a25330a6e48a711, type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 1096031007}
+    - target: {fileID: 4362521633532139123, guid: 13a78c85e91f85a41a25330a6e48a711, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1457643554}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13a78c85e91f85a41a25330a6e48a711, type: 3}
 --- !u!1 &356698642
@@ -2111,6 +2138,17 @@ Transform:
   m_Father: {fileID: 410747035}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &532935130 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4362521633532139123, guid: 13a78c85e91f85a41a25330a6e48a711, type: 3}
+  m_PrefabInstance: {fileID: 302202964}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7508e2df5213e34c8a649bac2ae0f83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &568447403
 GameObject:
   m_ObjectHideFlags: 0
@@ -2828,6 +2866,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5611151463472889972, guid: 684e9efbfa48ef64498e900eb9d826ec, type: 3}
   m_PrefabInstance: {fileID: 5611151462229748890}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1045154054 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5611151463472889962, guid: 684e9efbfa48ef64498e900eb9d826ec, type: 3}
+  m_PrefabInstance: {fileID: 5611151462229748890}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1045154055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2841,8 +2884,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 2064982343}
+  playerController: {fileID: 77431468}
   downForce: 13
   jumpForce: 1
+--- !u!50 &1096031007 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 1165511027432822396, guid: 13a78c85e91f85a41a25330a6e48a711, type: 3}
+  m_PrefabInstance: {fileID: 302202964}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1115439929
 GameObject:
   m_ObjectHideFlags: 0
@@ -5106,6 +5155,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1457643554 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1165511027999672596, guid: 13a78c85e91f85a41a25330a6e48a711, type: 3}
+  m_PrefabInstance: {fileID: 302202964}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1465572770
 GameObject:
   m_ObjectHideFlags: 0
@@ -8228,6 +8282,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 410747035}
     m_Modifications:
+    - target: {fileID: 5611151462020632357, guid: 684e9efbfa48ef64498e900eb9d826ec, type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 2064982343}
+    - target: {fileID: 5611151462020632357, guid: 684e9efbfa48ef64498e900eb9d826ec, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1045154054}
     - target: {fileID: 5611151462749313148, guid: 684e9efbfa48ef64498e900eb9d826ec, type: 3}
       propertyPath: playerInfo.jumpTime
       value: 0.2
