@@ -31,7 +31,9 @@ public class UnityPhysicsSystem : MonoBehaviour , IPhysicsSystem
     }
     public void ApplyJumpForece(float jumpForce, ForceMode2D forceMode) //添加跳跃力
     {
-        rb.AddForce(new Vector2(0,jumpForce), forceMode);
+      
+            rb.AddForce(new Vector2(0, jumpForce), forceMode);
+            
     }
 
     public Rigidbody2D GetRigidbody2D()

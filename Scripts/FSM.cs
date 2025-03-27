@@ -5,7 +5,7 @@ using UnityEngine;
 public enum StateType //状态枚举
 {
     Idle,
-    Move,Jump,
+    Move,Jump,MoveBefore,
     Attack1,Attack2,Attack3,
     Died, Dash,
     Air,Ground,
@@ -27,8 +27,10 @@ public class FSM : MonoBehaviour //状态机基类
     void Start()
     {
         //加入状态
-        stateDic.Add(StateType.Idle, new IdleState(playerController));
-        stateDic.Add(StateType.Move, new MoveState(playerController));
+        stateDic.Add(StateType.Idle, new PlayerIdleState(playerController));
+        stateDic.Add(StateType.Move, new PlayerMoveState(playerController));
+        stateDic.Add(StateType.MoveBefore, new PlayerMoveBeforeState(playerController));
+
         stateDic.Add(StateType.Jump,new PlayerJumpState(playerController));
         stateDic.Add(StateType.Air,new PlayerAirState(playerController));
         stateDic.Add(StateType.Ground,new PlayerGroundState(playerController));
@@ -39,7 +41,7 @@ public class FSM : MonoBehaviour //状态机基类
     void Update()
     {
         currentState?.Onupdate(playerInfo,playerStats); //把当前状态的update方法调用
-
+        
       
     }
 

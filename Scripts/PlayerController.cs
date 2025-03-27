@@ -42,7 +42,12 @@ public class PlayerController : Entity //玩家类型协助者
     {
         fsm.ChangeState(stateType);
     }
-    
+    public AnimatorStateInfo GetCurAnimStateInfo() //获取当前动画状态信息
+    {
+        return _animationSystem.GetCurAnimStateInfo();
+    }
+
+
     #endregion
     
     protected override void Update()

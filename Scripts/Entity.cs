@@ -16,6 +16,7 @@ public class Entity : MonoBehaviour // 实体类的公共行为
     public LayerMask groundLayer; // 地面层
 
     
+    
     [SerializeField] private UnityPhysicsSystem physicsSystem; // 使用接口来访问物理系统
     
     protected int facing = 1; // 角色的朝向，1为右，-1为左

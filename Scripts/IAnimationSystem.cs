@@ -7,4 +7,5 @@ public interface IAnimationSystem
     
     void SetFloat(string parameterName, float value);//设置浮点型参数接口
     
+   
 }

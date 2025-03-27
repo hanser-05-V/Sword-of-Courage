@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
 using UnityEngine;
 
-public class MoveState : PlayerGroundState, IState
+public class PlayerMoveState : PlayerGroundState, IState
 {
 
-    public MoveState(PlayerController playerController) : base(playerController)
+    public PlayerMoveState(PlayerController playerController) : base(playerController)
     {
         base.playerController = playerController;
     }
 
     public override void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
     {
+        Debug.Log("进入移动状态");
         playerController.Play("playerMove");
         // playerController.SetBool("Move",true);
     }

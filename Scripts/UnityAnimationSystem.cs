@@ -26,4 +26,8 @@ public class UnityAnimationSystem :  MonoBehaviour , IAnimationSystem
     {
         _animator.SetFloat(parameterName, value);
     }
+    public AnimatorStateInfo GetCurAnimStateInfo() //获取当前动画状态信息接口
+    {
+        return _animator.GetCurrentAnimatorStateInfo(0);
+    }
 }

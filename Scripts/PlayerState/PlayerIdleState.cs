@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 
-public class IdleState : PlayerGroundState ,IState
+public class PlayerIdleState : PlayerGroundState ,IState
 {
 
-    public IdleState(PlayerController playerController) : base(playerController)
+    public PlayerIdleState(PlayerController playerController) : base(playerController)
     {
         base.playerController = playerController;
     }
