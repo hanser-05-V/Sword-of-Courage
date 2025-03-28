@@ -9,8 +9,14 @@ public class PlayerAnimatorTrigger : MonoBehaviour
     [SerializeField] private PlayerController playerController;
 
 
-    private void MoveBeforeToMove()
+    private void MoveBeforeToMove() // 转为Move状态
     {
         playerController.ChangeState(StateType.Move);
+    }
+
+    private void TurnToIdle() // 转为Idle状态
+    {
+        playerController.ChangeState(StateType.Idle);
+        
     }
 }

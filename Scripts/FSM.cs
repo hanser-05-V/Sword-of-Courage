@@ -5,7 +5,9 @@ using UnityEngine;
 public enum StateType //状态枚举
 {
     Idle,
-    Move,Jump,MoveBefore,
+    Move,MoveBefore,
+    Jump,DownToGround,
+    Down,DownRepeat,DownHeavy,
     Attack1,Attack2,Attack3,
     Died, Dash,
     Air,Ground,
@@ -33,10 +35,14 @@ public class FSM : MonoBehaviour //状态机基类
         stateDic.Add(StateType.Idle, new PlayerIdleState(playerController,"Idle"));
         stateDic.Add(StateType.Move, new PlayerMoveState(playerController,"Move"));
         stateDic.Add(StateType.MoveBefore, new PlayerMoveBeforeState(playerController,"MoveBefore"));
-        stateDic.Add(StateType.Jump,new PlayerJumpState(playerController));
-        stateDic.Add(StateType.Air,new PlayerAirState(playerController));
+        stateDic.Add(StateType.Jump,new PlayerJumpState(playerController,"Jump"));
+        stateDic.Add(StateType.DownToGround,new PlayerDownToGroundState(playerController,"DownToGround"));
+        stateDic.Add(StateType.Down,new PlayerDownState(playerController,"Down"));
+        stateDic.Add(StateType.DownRepeat,new PlayerDownReaptState(playerController,"DownRepeat"));
+
+        stateDic.Add(StateType.Air,new PlayerAirState(playerController,"Jump"));
         // stateDic.Add(StateType.Ground,new PlayerGroundState(playerController));
-        stateDic.Add(StateType.Dash,new PlayerDashState(playerController));
+        stateDic.Add(StateType.Dash,new PlayerDashState(playerController,"Dash"));
     }
     void Start()
     {

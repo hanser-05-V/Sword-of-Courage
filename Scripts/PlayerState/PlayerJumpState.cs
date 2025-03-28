@@ -6,67 +6,55 @@ using UnityEngine;
 public class PlayerJumpState : IState
 {
 
-    private PlayerController playerController;
+   private PlayerController playerController;
     private float currentJumpTime;
     private bool isJumping;
-    public PlayerJumpState(PlayerController playerController)
+    private string animationName;
+
+    public PlayerJumpState(PlayerController playerController , string  animationName)
     {
         this.playerController = playerController;
+        this.animationName = animationName;
     }
 
-    public  void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
+    public void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
     {
-   
         currentJumpTime = 0;
         isJumping = true;
-        // playerController.ChangeYvelocity(0);
-        // playerController.Play("JumpToDown");
-
+        // 进入跳跃状态时播放跳跃动画
+        playerController.SetBool(animationName, true);
     }
 
-    public  void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
+    public void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
     {
-
+        // 退出跳跃状态时做一些清理工作（如果有需要）
+        playerController.SetBool(animationName, false);
     }
-
-    public  void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
+    public void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
     {
-        playerController.SetFloat("Yvelocity",playerController.rb.velocity.y);//让动画根据Y速度对应混合树播放 跳跃/下落动画
+       
 
-        playerInfo.jumpDuration -= Time.deltaTime;
-        // if(playerInfo.jumpDuration<=0)
-        // {
-        //     Debug.Log("jump over");
-        //     //开始下落
-        //     // playerController.ChangeYvelocity(0);
-        //     playerController.SetVecolity(playerController.rb.velocity.x,0);
-        //     playerController.ChangeState(StateType.Air);
-           
-        // }
-        if(isJumping && Input.GetKey(KeyCode.Space))
+        // 如果跳跃时间结束或按键松开，开始下落
+        if (isJumping && (Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Fire1") || currentJumpTime >= playerInfo.jumpTime))
         {
-            currentJumpTime += Time.deltaTime;//增加跳跃时间
+     
+            isJumping = false;    
+            playerController.ChangeState(StateType.Air); // 切换到空中状态
 
+        }
 
-            if(currentJumpTime < playerInfo.jumpTime)//跳跃时间未到最大值
+        // 如果角色仍在跳跃，增加跳跃时间并调整Y速度
+        if (isJumping && (Input.GetKey(KeyCode.Space)||Input.GetButton("Fire1")) )
+        {
+            currentJumpTime += Time.deltaTime;
+
+            if (currentJumpTime < playerInfo.jumpTime)
             {
-                // float force = Mathf.Lerp(playerInfo.jumpMinHeight, playerInfo.jumpForce, currentJumpTime / playerInfo.jumpTime);
-                // playerController.ChangeYvelocity(force); //增加跳跃力
-
-                //使用非线性函数
+                // 使用Sin函数实现跳跃的非线性加速
                 float t = currentJumpTime / playerInfo.jumpTime;
-                float force = Mathf.Lerp(playerInfo.jumpMinHeight,playerInfo.jumpForce,Mathf.Sin(t*Mathf.PI* 0.5f)   );
-                // playerController.ChangeYvelocity(force); //增加跳跃力
-                playerController.SetVecolity(playerController.rb.velocity.x,force);
+                float force = Mathf.Lerp(playerInfo.jumpMinHeight, playerInfo.jumpForce, Mathf.Sin(t * Mathf.PI * 0.5f));
+                playerController.SetVecolity(playerController.rb.velocity.x, force);
             }
-        }
-        if(Input.GetKeyUp(KeyCode.Space) || currentJumpTime >= playerInfo.jumpTime)
-        {
-            isJumping = false;
-        }
-        if(playerController.rb.velocity.y<=0)
-        {
-            playerController.ChangeState(StateType.Air);
         }
 
     }

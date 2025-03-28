@@ -14,4 +14,6 @@ public class PlayerInfo
 
     public float jumpDuration = 1f ; // 跳跃持续时间
 
+    public float repeatYvelocityMin ; //播放重复片段的最小y速度
+    public float downYvelocityMin ; //播放下落片段的最小y速度
 }

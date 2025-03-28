@@ -47,16 +47,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundCheck: {fileID: 5611151463730819873}
-  groundChenkDistance: 0.29
+  groundChenkDistance: 0.25
   wallCheck: {fileID: 5611151463085996197}
   wallCheckDistance: 0.2
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
-  physicsSystem: {fileID: 5611151463856023223}
-  xInput: 0
   fsm: {fileID: 5611151462749313148}
-  _animationSystem: {fileID: 5611151463472889960}
+  animator: {fileID: 5611151463472889962}
+  rb: {fileID: 5611151463856023217}
+  xInput: 0
   dashSpeed: 15
   dashDruation: 0
   defalutDashDruation: 0.5
@@ -107,7 +107,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInfo:
     moveSpeed: 10
-    jumpForce: 20
+    jumpForce: 7.5
+    jumpTime: 0.5
+    jumpMinHeight: 0.5
+    jumpDuration: 1
+    repeatYvelocityMin: 5
+    downYvelocityMin: 1
   playerStats: {fileID: 11400000, guid: aca49a4e6888f0947889a02f2fdccdd2, type: 2}
   playerController: {fileID: 5611151462020632357}
 --- !u!1 &5611151463085996196
@@ -152,6 +157,7 @@ GameObject:
   - component: {fileID: 5611151463472889962}
   - component: {fileID: 5611151463472889960}
   - component: {fileID: 5611151463472889963}
+  - component: {fileID: 1045154055}
   m_Layer: 0
   m_Name: AnimatorSystem
   m_TagString: Untagged
@@ -258,6 +264,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1045154055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5611151463472889972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 309b1b42470758b4199dd849e196e0ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 5611151463856023217}
+  playerController: {fileID: 5611151462020632357}
 --- !u!1 &5611151463730819872
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,7 +334,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5611151463856023218}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.71, y: -138.9, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
@@ -354,7 +374,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 3.5
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 0

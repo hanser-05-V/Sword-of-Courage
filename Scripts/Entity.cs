@@ -117,6 +117,7 @@ public class Entity : MonoBehaviour // 实体类的公共行为
     {
         if(Physics2D.Raycast(groundCheck.position,Vector2.down,groundChenkDistance,groundLayer))
         {
+            
             return true;   
         }
         else
