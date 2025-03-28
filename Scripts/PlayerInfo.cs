@@ -16,4 +16,8 @@ public class PlayerInfo
 
     public float repeatYvelocityMin ; //播放重复片段的最小y速度
     public float downYvelocityMin ; //播放下落片段的最小y速度
+
+
+    [Header("冲刺相关")]
+    public float dashSpeed = 10f;
 }

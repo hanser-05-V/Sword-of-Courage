@@ -316,7 +316,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1165511027432822369, guid: 13a78c85e91f85a41a25330a6e48a711, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1165511027432822371, guid: 13a78c85e91f85a41a25330a6e48a711, type: 3}
       propertyPath: m_RootOrder
@@ -8244,6 +8244,42 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 410747035}
     m_Modifications:
+    - target: {fileID: 5611151462020632357, guid: 684e9efbfa48ef64498e900eb9d826ec, type: 3}
+      propertyPath: dashCooldown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5611151462020632357, guid: 684e9efbfa48ef64498e900eb9d826ec, type: 3}
+      propertyPath: dashDuration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5611151462749313148, guid: 684e9efbfa48ef64498e900eb9d826ec, type: 3}
+      propertyPath: playerInfo.jumpTime
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 5611151462749313148, guid: 684e9efbfa48ef64498e900eb9d826ec, type: 3}
+      propertyPath: playerInfo.dashSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5611151462749313148, guid: 684e9efbfa48ef64498e900eb9d826ec, type: 3}
+      propertyPath: playerInfo.jumpForce
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5611151462749313148, guid: 684e9efbfa48ef64498e900eb9d826ec, type: 3}
+      propertyPath: playerInfo.jumpMinHeight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5611151462749313148, guid: 684e9efbfa48ef64498e900eb9d826ec, type: 3}
+      propertyPath: playerInfo.downYvelocityMin
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5611151462749313148, guid: 684e9efbfa48ef64498e900eb9d826ec, type: 3}
+      propertyPath: playerInfo.repeatYvelocityMin
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5611151463856023217, guid: 684e9efbfa48ef64498e900eb9d826ec, type: 3}
+      propertyPath: m_GravityScale
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5611151463856023218, guid: 684e9efbfa48ef64498e900eb9d826ec, type: 3}
       propertyPath: m_Name
       value: Player

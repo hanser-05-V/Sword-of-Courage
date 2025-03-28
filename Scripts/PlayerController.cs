@@ -9,19 +9,14 @@ public class PlayerController : Entity //玩家类型协助者
   
     #region 玩家特殊行为变量
     [Header("冲刺相关")]
-    public float dashSpeed;
-    public float dashDruation;
-    [SerializeField] private float defalutDashDruation;
-    [SerializeField] private float dashCooldown;
+    public bool isDashing; // 用于判断是否正在冲刺
+    private float dashCoolTimer; // 用于计算冲刺的冷却时间
+    public float dashDuration = 0.2f; // 冲刺的持续时间（可以根据需要修改）
+    public float dashCooldown = 1f; // 冲刺的冷却时间
 
-    public float dashDir {get; private set;}
-    [SerializeField] private float dashTimer;    
-    private bool isDashing;
-    
+    public float dashDir ;
+
     #endregion
-
-
-
 
     #region 动画相关方法
     // public void Play(string animationName) //播放动画接口
@@ -52,45 +47,38 @@ public class PlayerController : Entity //玩家类型协助者
     {
         base.Update();
         //所有状态 公共行为
-       dashTimer -= Time.deltaTime;
-        if(Input.GetKeyDown(KeyCode.LeftShift) && !isDashing )
+        dashCoolTimer -= Time.deltaTime; // 冲刺冷却时间减少
+        if(Input.GetKeyDown(KeyCode.Q) )
         {
             StartCoroutine(StartDash());// 冲刺
         }
 
     }
-    IEnumerator StartDash() //冲刺协程
+    public IEnumerator StartDash()
     {
-        dashDruation = defalutDashDruation;
-        if(CanDash())
+        if (CanDash())
         {
-            isDashing = true;
+            // 如果可以冲刺，则开始冲刺协程
             dashDir = Input.GetAxisRaw("Horizontal");
-            if(dashDir == 0)
+            if (dashDir == 0)
             {
                 dashDir = facing;
             }
-            ChangeState(StateType.Dash);
-            yield return new WaitForSeconds(dashDruation);
-            dashDruation = 0;
-            Debug.Log("冲刺结束");
+            ChangeState(StateType.Dash); // 进入冲刺状态
+        
+            yield return new WaitForSeconds(dashDuration);
+
+            ChangeState(StateType.Idle); // 回到空闲状态
         }
-        else
-        {
-            yield return null;
-        }
-        isDashing = false;
     }
-    
-    private bool  CanDash() //判断能否冲刺
+    private bool CanDash()
     {
-     
-        if(dashCooldown > dashTimer)
+        if(dashCoolTimer < 0 )
         {
-            dashTimer = 3f;
-            Debug.Log("Can Dash");
+            dashCoolTimer =  dashCooldown;
             return true;
         }
+        Debug.Log("技能正在冷却");
         return false;
     }
 }

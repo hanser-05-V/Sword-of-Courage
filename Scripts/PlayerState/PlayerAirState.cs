@@ -16,7 +16,7 @@ public class PlayerAirState : IState //玩家空中状态
     public virtual void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
     {
         playerController.SetBool(animatorBoolName, true);
-        Debug.Log("进入空中状态");
+
     }
 
     public virtual void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
@@ -37,11 +37,6 @@ public class PlayerAirState : IState //玩家空中状态
         {
             playerController.ChangeState(StateType.Down);
         }
-
-        // if(playerController.rb.velocity.y <0) //播放下落动画的时机
-        // {
-        //     playerController.ChangeState(StateType.Down);
-        // }
 
         if(playerController.IsGroundDetected()) //检测到地面 变为静止状态
         {

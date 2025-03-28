@@ -24,9 +24,6 @@ public class PlayerDownToGroundState : PlayerGroundState
     {
         base.Onupdate(playerInfo, playerStats);
 
-        // if(playerController.xInput != 0)
-        // {
-        //     playerController.ChangeState(StateType.Move);
-        // }
+    
     }
 }
