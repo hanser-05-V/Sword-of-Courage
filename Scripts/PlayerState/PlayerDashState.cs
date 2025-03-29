@@ -27,18 +27,26 @@ public class PlayerDashState : IState
         playerController.SetBool(animatorBoolName, false);
 
     }
-
-
     public void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
     {
         // 启动冲刺并设置冲刺方向
-        playerController.SetVecolity(playerInfo.dashSpeed * playerController.dashDir, 0f);
-        // 如果冲刺持续时间结束，切换到Idle状态
-        if ( playerController.dashDuration <= 0)
+         playerController.SetVecolity(playerInfo.dashSpeed * playerController.dashDir, 0f);
+         
+        if(!playerController.isDashing) //冲刺结束
         { 
-            Debug.Log("dash end");
-            playerController.ChangeState(StateType.Idle);
+        
+
+            if(playerController.IsGroundDetected())
+            {
+                playerController.ChangeState(StateType.Idle);
+
+            }
+            else
+            {
+                playerController.rb.velocity = new Vector2(playerInfo.airDashOverXvelocity * playerController.facing, -playerInfo.airDashOverYvelocity);
+                playerController.ChangeState(StateType.Down);
+            }
         }
-           
+
     }
 }

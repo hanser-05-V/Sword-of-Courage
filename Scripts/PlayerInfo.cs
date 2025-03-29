@@ -20,4 +20,6 @@ public class PlayerInfo
 
     [Header("冲刺相关")]
     public float dashSpeed = 10f;
+    public float airDashOverYvelocity = 0.5f; //空中冲刺完 Y默认速度
+    public float airDashOverXvelocity = 0.5f; //空中冲刺完 X默认速度
 }

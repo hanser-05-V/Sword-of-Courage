@@ -14,7 +14,7 @@ public class PlayerIdleState : PlayerGroundState ,IState
     {
         base.OnEnter(playerInfo, playerStats);
         playerController.SetZeroVecolity();
-       
+      
     }
 
     public override void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)

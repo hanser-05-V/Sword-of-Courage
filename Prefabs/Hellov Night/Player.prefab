@@ -55,13 +55,20 @@ MonoBehaviour:
     m_Bits: 256
   fsm: {fileID: 5611151462749313148}
   animator: {fileID: 5611151463472889962}
+  sp: {fileID: 5611151463472889963}
   rb: {fileID: 5611151463856023217}
+  facing: 1
   xInput: 0
-  dashSpeed: 15
-  dashDruation: 0
-  defalutDashDruation: 0.5
+  isDashing: 0
+  dashDuration: 0.4
   dashCooldown: 1
-  dashTimer: 0
+  dashDir: 0
+  shadowParent: {fileID: 5611151463856023219}
+  shadowCount: 2
+  shadowInterval: 0.1
+  shadowDuration: 0.15
+  changeSpeed: 0.2
+  verticalOffset: 0.15
 --- !u!1 &5611151462749313150
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,12 +114,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInfo:
     moveSpeed: 10
-    jumpForce: 7.5
-    jumpTime: 0.5
-    jumpMinHeight: 0.5
+    jumpForce: 15
+    jumpTime: 0.4
+    jumpMinHeight: 1
     jumpDuration: 1
-    repeatYvelocityMin: 5
-    downYvelocityMin: 1
+    repeatYvelocityMin: 15
+    downYvelocityMin: 11
+    dashSpeed: 20
+    airDashOverYvelocity: 8
+    airDashOverXvelocity: 10
   playerStats: {fileID: 11400000, guid: aca49a4e6888f0947889a02f2fdccdd2, type: 2}
   playerController: {fileID: 5611151462020632357}
 --- !u!1 &5611151463085996196
@@ -320,6 +330,7 @@ GameObject:
   - component: {fileID: 5611151463856023222}
   - component: {fileID: 5611151463856023217}
   - component: {fileID: 5611151463856023223}
+  - component: {fileID: 688876619}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -374,7 +385,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 5
   m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 0
@@ -392,3 +403,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dbc7d399d88b9141978cee7dc2a9ca5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &688876619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5611151463856023218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc158f48f616ca24e80f0e96b8d88283, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 5611151463856023218}

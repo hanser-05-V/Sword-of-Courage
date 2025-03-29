@@ -33,6 +33,11 @@ public class PlayerJumpState : IState
     public void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
     {
        
+        if (isJumping)
+        {
+            //生成残影
+            // playerController.ShowShadow();
+        }
 
         // 如果跳跃时间结束或按键松开，开始下落
         if (isJumping && (Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Fire1") || currentJumpTime >= playerInfo.jumpTime))
