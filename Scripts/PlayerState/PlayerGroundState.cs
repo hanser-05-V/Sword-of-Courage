@@ -29,10 +29,10 @@ public class PlayerGroundState : IState // 地面状态 公共方法基类
     public virtual void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
     {
         
-        if((Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire1") )&& playerController.IsGroundDetected()) //地面上 按下空格 跳跃
+        if(Input.GetKeyDown(KeyCode.Space) && playerController.IsGroundDetected()) //地面上 按下空格 跳跃
         {
             isJumping = true;
-            playerController.ShowShadow();
+            // playerController.ShowShadow();
             // playerController.ChangeYvelocity(0); // 重置y轴速度
             playerController.SetVecolity(playerController.rb.velocity.x,0); //重置Y轴速度
             playerController.ChangeState(StateType.Jump);
@@ -43,5 +43,10 @@ public class PlayerGroundState : IState // 地面状态 公共方法基类
        
             playerController.ChangeState(StateType.Air);
         }
+
+        // if(Input.GetMouseButtonDown(0)) // 按下鼠标左键 切换到攻击状态
+        // {
+        //     playerController.ChangeState(StateType.Attack1);
+        // }
     }
 }

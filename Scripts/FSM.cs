@@ -43,6 +43,10 @@ public class FSM : MonoBehaviour //状态机基类
         stateDic.Add(StateType.Air,new PlayerAirState(playerController,"Jump"));
         // stateDic.Add(StateType.Ground,new PlayerGroundState(playerController));
         stateDic.Add(StateType.Dash,new PlayerDashState(playerController,"Dash"));
+
+        stateDic.Add(StateType.Attack1 ,new PlayerCombuAttackState(playerController,"Attack") );
+
+
     }
     void Start()
     {
