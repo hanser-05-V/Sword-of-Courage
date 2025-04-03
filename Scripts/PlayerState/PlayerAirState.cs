@@ -55,6 +55,10 @@ public class PlayerAirState : IState //玩家空中状态
             {
                 playerController.ChangeState(StateType.DownToGround);
             }
+            if(Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire1"))
+            {
+                playerController.ChangeState(StateType.Jump); 
+            } 
         } 
         playerController.SetFloat("Yvelocity",playerController.rb.velocity.y);
     }

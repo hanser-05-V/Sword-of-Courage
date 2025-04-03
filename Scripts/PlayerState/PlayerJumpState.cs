@@ -40,7 +40,7 @@ public class PlayerJumpState : IState
         }
 
         // 如果跳跃时间结束或按键松开，开始下落
-        if (isJumping && Input.GetKeyUp(KeyCode.Space) || currentJumpTime >= playerInfo.jumpTime)
+        if (isJumping && Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Fire1") || currentJumpTime >= playerInfo.jumpTime)
         {
      
             isJumping = false;    
@@ -49,7 +49,7 @@ public class PlayerJumpState : IState
         }
 
         // 如果角色仍在跳跃，增加跳跃时间并调整Y速度
-        if (isJumping && Input.GetKey(KeyCode.Space ))
+        if (isJumping && (Input.GetKey(KeyCode.Space )|| Input.GetButton("Fire1")))
         {
             currentJumpTime += Time.deltaTime;
 
