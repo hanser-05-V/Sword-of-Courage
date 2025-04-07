@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Analytics;
 
@@ -136,8 +137,8 @@ public class PlayerController : Entity //玩家类型协助者
             shadowList[i].transform.localEulerAngles = new Vector3(0,facing<0? 0: 180, 0); // 复制角色的朝向
             shadowList[i].gameObject.SetActive(true); // 显示残影
             //TODO : 添加残影Aplha 变化
-
-            yield return StartCoroutine(ShadowAphaChange(shadowList[i], shadowDuration)); // 开始透明度变化的协程
+            shadowList[i].DOFade(0,shadowDuration);
+            // yield return StartCoroutine(ShadowAphaChange(shadowList[i], shadowDuration)); // 开始透明度变化的协程
 
             yield return new WaitForSeconds(shadowInterval);
            

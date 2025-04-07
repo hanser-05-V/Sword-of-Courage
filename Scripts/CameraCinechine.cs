@@ -7,12 +7,13 @@ using UnityEngine.Rendering;
 public class CameraCinechine : MonoBehaviour
 {
     public CinemachineVirtualCamera virtualCamera;
-    [SerializeField] private CinemachineFramingTransposer framingTransposer; 
+    private CinemachineFramingTransposer framingTransposer; 
 
     public float triggerAfterH = 0.25f;
     public float triggerAfterW = 0.25f;
-    public float defolutHeight = 0.25f;
+    public float defolutHeight = 0.25f; //竖直方向不追踪
     public float defolutWidth = 0.25f;
+    public float changeSpeed = 10f; // 平滑过渡时间
     [SerializeField] public bool isPlayerEnter = false;
     void Start()
     {
@@ -22,17 +23,23 @@ public class CameraCinechine : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            Debug.Log("玩家进入");
+           
             if(!isPlayerEnter)
             {
+
+                // framingTransposer.m_DeadZoneHeight = Mathf.Lerp(framingTransposer.m_DeadZoneHeight,defolutHeight,changeSpeed*Time.deltaTime);
+                // framingTransposer.m_DeadZoneWidth = Mathf.Lerp(framingTransposer.m_DeadZoneWidth,defolutWidth,changeSpeed*Time.deltaTime);
                 framingTransposer.m_DeadZoneHeight = defolutHeight;
                 framingTransposer.m_DeadZoneWidth = defolutWidth;
                 isPlayerEnter = true;
             }
-            else
+            else //触发过后又变成初始状态
             {
+                // framingTransposer.m_DeadZoneHeight = Mathf.Lerp(framingTransposer.m_DeadZoneHeight,triggerAfterH,changeSpeed*Time.deltaTime);
+                // framingTransposer.m_DeadZoneWidth = Mathf.Lerp(framingTransposer.m_DeadZoneWidth,triggerAfterW,changeSpeed*Time.deltaTime);
                 framingTransposer.m_DeadZoneHeight = triggerAfterH;
                 framingTransposer.m_DeadZoneWidth = triggerAfterW;
+                isPlayerEnter = false;
             }
         }
     }

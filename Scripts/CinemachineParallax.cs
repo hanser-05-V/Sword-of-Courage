@@ -15,6 +15,7 @@ public class CinemachineParallax : MonoBehaviour
     {
         cinemachineCamera = GetComponent<CinemachineVirtualCamera>();
         _cameraPosition = cinemachineCamera.transform.position;
+        
     }
 
     void Update()

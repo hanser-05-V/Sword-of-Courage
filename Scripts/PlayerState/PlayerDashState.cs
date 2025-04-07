@@ -35,7 +35,6 @@ public class PlayerDashState : IState
         if(!playerController.isDashing) //冲刺结束
         { 
         
-
             if(playerController.IsGroundDetected())
             {
                 playerController.ChangeState(StateType.Idle);
