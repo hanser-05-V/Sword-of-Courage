@@ -27,7 +27,8 @@ public class PlayerController : Entity //玩家类型协助者
     [SerializeField] private float verticalOffset = 1f; // 用于设置残影的垂直偏移量
     private float shadowTimer; // 用于控制残影生成的计时器
     #endregion
-
+    
+    
     
     protected override void Start()
     {
@@ -117,9 +118,7 @@ public class PlayerController : Entity //玩家类型协助者
 
         for(int i =0 ;i<shadowCount;i++)
         {
-
              Vector3 offset = Vector3.zero;
-
             // 根据玩家的垂直速度来判断偏移
             if (rb.velocity.y > 0) // 如果玩家在跳跃
             {
@@ -132,35 +131,15 @@ public class PlayerController : Entity //玩家类型协助者
 
             shadowList[i].color= Color.white;
             shadowList[i].sprite = sp.sprite; // 复制角色的 sprite
-            shadowList[i].transform.position = transform.position + offset; // 复制角色的位置
+            shadowList[i].transform.position = transform.position;
             shadowList[i].transform.localScale = sp.transform.localScale; // 复制角色的大小
             shadowList[i].transform.localEulerAngles = new Vector3(0,facing<0? 0: 180, 0); // 复制角色的朝向
             shadowList[i].gameObject.SetActive(true); // 显示残影
             //TODO : 添加残影Aplha 变化
             shadowList[i].DOFade(0,shadowDuration);
-            // yield return StartCoroutine(ShadowAphaChange(shadowList[i], shadowDuration)); // 开始透明度变化的协程
-
             yield return new WaitForSeconds(shadowInterval);
            
         }
 
-    }
-
-    // 透明度变化的协程
-    IEnumerator ShadowAphaChange(SpriteRenderer shadow, float duration)
-    {
-        float elapsedTime = 0f;
-        float startAlpha = shadow.color.a;
-        while (elapsedTime < duration)
-        {
-            float alpha = Mathf.Lerp(startAlpha, 0f, elapsedTime / duration); // 从原始透明度渐变到0
-            shadow.color = new Color(shadow.color.r, shadow.color.g, shadow.color.b, alpha);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        // 最终透明度设置为0
-        shadow.color = new Color(shadow.color.r, shadow.color.g, shadow.color.b, 0f);
-        shadow.gameObject.SetActive(false); // 隐藏残影
     }
 }

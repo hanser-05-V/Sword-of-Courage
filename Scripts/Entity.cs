@@ -24,7 +24,10 @@ public class Entity : MonoBehaviour // 实体类的公共行为
     public int facing = 1; // 角色的朝向，1为右，-1为左
     private bool isFacingRight = true; // 角色的默认朝向，true为右，false为左
 
-    [HideInInspector] public float xInput; // 角色的水平方向输入值
+    public float xInput {get; private set;} // 角色的水平方向输入值
+
+
+    public SkillManager skill {get ; private set ; }  // 技能管理组件
     
     protected  virtual void Update()
     {
@@ -145,6 +148,10 @@ public class Entity : MonoBehaviour // 实体类的公共行为
     #endregion
 
 
+    protected virtual void  Awake()
+    {
+        skill = SkillManager.Instance;
+    }
     protected virtual void  Start()
     {
         

@@ -13,8 +13,7 @@ public class CameraCinechine : MonoBehaviour
     public float triggerAfterW = 0.25f;
     public float defolutHeight = 0.25f; //竖直方向不追踪
     public float defolutWidth = 0.25f;
-    public float changeSpeed = 10f; // 平滑过渡时间
-    [SerializeField] public bool isPlayerEnter = false;
+    public static bool isPlayerEnter = false;
     void Start()
     {
         framingTransposer = virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
