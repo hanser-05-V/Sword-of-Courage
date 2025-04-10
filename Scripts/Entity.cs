@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour // 实体类的公共行为
 {
+    [Header("对象相关")]
+    public Transform targetObject ; // 目标对象
 
     [Header("检测相关")]
     public Transform groundCheck; // 地面检测点
@@ -13,6 +15,9 @@ public class Entity : MonoBehaviour // 实体类的公共行为
     
     public Transform wallCheck; // 墙壁检测点
     public float wallCheckDistance; // 墙壁检测距离
+
+    public Transform headCheck; // 头部检测点
+    public float headCheckDistance; // 头部检测距离
     public LayerMask groundLayer; // 地面层
 
     [Header("组件相关")]
@@ -144,7 +149,17 @@ public class Entity : MonoBehaviour // 实体类的公共行为
         }
     } 
     
-
+    public bool IsheadDetected() //头部检测到物体
+    {   
+        if(Physics2D.Raycast(headCheck.position,Vector2.up,headCheckDistance,groundLayer))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     #endregion
 
 
@@ -162,6 +177,7 @@ public class Entity : MonoBehaviour // 实体类的公共行为
     {
         Gizmos.DrawLine(groundCheck.position , new Vector3(groundCheck.position.x, groundCheck.position.y - groundChenkDistance, groundCheck.position.z));
         Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x+ wallCheckDistance, wallCheck.position.y , wallCheck.position.z));
+        Gizmos.DrawLine(headCheck.position, new Vector3(headCheck.position.x, headCheck.position.y + headCheckDistance, headCheck.position.z));
     }
     
 }

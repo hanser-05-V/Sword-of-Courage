@@ -22,6 +22,7 @@ public class PlayerDashState : IState
         playerController.SetBool(animatorBoolName, true);
         //TODO: 这里应该调用技能组件的冲刺方法 生成特效
         // playerController.skill.dash.UseSkill();
+        playerController.StartDashCoroutine();
 
     }
 

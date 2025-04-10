@@ -60,6 +60,14 @@ public class PlayerAirState : IState //玩家空中状态
                 playerController.ChangeState(StateType.Jump); 
             } 
         } 
+
+        if(playerController.IsheadDetected()) //防止玩家之间飞出去
+        {
+        
+            playerController.SetVecolity(0,playerController.rb.velocity.y);
+            playerController.ChangeState(StateType.Down);
+        }
+
         playerController.SetFloat("Yvelocity",playerController.rb.velocity.y);
     }
 
