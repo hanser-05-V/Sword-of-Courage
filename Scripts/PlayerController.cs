@@ -120,9 +120,13 @@ public class PlayerController : Entity //玩家类型协助者
     #region  残影生成相关
     private void CreateShadow(Vector3 posion)// 创建单个残影
     {
+        float distance = Vector3.Distance(posion,endPos);// 当前位置距离终点的距离
         SpriteRenderer dashSR = GetAvailableShadow();
         dashSR.gameObject.SetActive(true);
-        dashSR.transform.position = Vector3.Lerp(startPos,endPos,smoothSpeed* Time.deltaTime );
+        // dashSR.transform.position = Vector3.Lerp(startPos,endPos,smoothSpeed* Time.deltaTime ); //位置插值 生成残影
+
+        dashSR.transform.position = posion; // 直接设置位置
+    
         if (dashDir == 1)
         {
             dashSR.transform.localRotation = Quaternion.identity; // 朝右
@@ -135,6 +139,7 @@ public class PlayerController : Entity //玩家类型协助者
         dashSR.color = new Color(dashSR.color.r, dashSR.color.g, dashSR.color.b, 1); // 重置透明度
 
         // 启动淡出动画（持续shadowLifetime秒后消失）
+        float dashDuration = Mathf.Clamp(distance /2f,0.1f,shadowAplhaDuration);// 计算残影持续时间
         dashSR.DOFade(0, shadowAplhaDuration)
             .OnComplete(() => dashSR.gameObject.SetActive(false));
      }
@@ -155,7 +160,7 @@ public class PlayerController : Entity //玩家类型协助者
     }
     IEnumerator DashRoutine()
     {
-        // 清空旧路径数据
+        // 清空旧路径数据 
         dashPathPosition.Clear();
     
         // 记录冲刺路径
