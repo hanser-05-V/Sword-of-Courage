@@ -29,7 +29,7 @@ public class Entity : MonoBehaviour // 实体类的公共行为
     public int facing = 1; // 角色的朝向，1为右，-1为左
     private bool isFacingRight = true; // 角色的默认朝向，true为右，false为左
 
-    public float xInput {get; private set;} // 角色的水平方向输入值
+    public float xInput {get ; private set;} // 角色的水平方向输入值
 
 
     public SkillManager skill {get ; private set ; }  // 技能管理组件
@@ -38,7 +38,9 @@ public class Entity : MonoBehaviour // 实体类的公共行为
     {
         xInput = Input.GetAxisRaw("Horizontal"); // 获取水平方向输入值 
     }
+
     #region 速度相关方法
+
     public void SetVecolity(float xVelocity, float yVelocity)//设置速度
     {
         rb.velocity = new Vector2(xVelocity, yVelocity);
@@ -49,42 +51,9 @@ public class Entity : MonoBehaviour // 实体类的公共行为
     {
         rb.velocity = new Vector2(0,0);
     }
-    // public void ApplyJumpForece(float jumpForce,ForceMode2D forceMode) //添加跳跃力
-    // {
-    //     physicsSystem.ApplyJumpForece(jumpForce,forceMode);
-    // }
-    // public void SetVelocity(float xVelocity, float yVelocity) //设置速度
-    // {
-    //     physicsSystem.SetVelocity(xVelocity, yVelocity);
-    //     FlipController(xVelocity);
-
-    // }
-
-    // public void SetZeroVelocity()//设置速度为0
-    // {
-    //     physicsSystem.SetZeroVelocity();
-    // }
-
-    // public void ChangeXvelocity(float xVelocity) //设置x轴速度
-    // {
-    //     physicsSystem.ChangeXvelocity(xVelocity);
-    // }
-    // public void ChangeYvelocity(float yVelocity) //设置y轴速度
-    // {
-    //     physicsSystem.ChangeYvelocity(yVelocity);
-    // }
-
-    // public Rigidbody2D GetRigidbody2D() //获取刚体
-    // {
-    //     return physicsSystem.GetRigidbody2D();
-    // }
-
-    // public float GetYVelocity() //获取y轴速度
-    // {
-    //     return physicsSystem.GetYVelocity();
-    // }
-
     #endregion
+
+
     #region 动画相关方法  
     public virtual void ChangeState(StateType stateType) // 切换状态方法
     {
@@ -99,7 +68,13 @@ public class Entity : MonoBehaviour // 实体类的公共行为
     {
         animator.SetFloat(parameterName, value);
     }
+
+    public virtual void SetInt(string parameterName, int value) //设置int
+    {
+        animator.SetInteger(parameterName, value);
+    }
     #endregion
+
 
     #region 角色翻转
     public void Flip()
@@ -161,8 +136,6 @@ public class Entity : MonoBehaviour // 实体类的公共行为
         }
     }
     #endregion
-
-
     protected virtual void  Awake()
     {
         skill = SkillManager.Instance;
@@ -171,8 +144,6 @@ public class Entity : MonoBehaviour // 实体类的公共行为
     {
         
     }
-    
-
     void OnDrawGizmos()
     {
         Gizmos.DrawLine(groundCheck.position , new Vector3(groundCheck.position.x, groundCheck.position.y - groundChenkDistance, groundCheck.position.z));
