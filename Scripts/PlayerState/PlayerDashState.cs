@@ -3,51 +3,40 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 
-public class PlayerDashState : IState
+public class PlayerDashState : PlayerState
 {
-
-    private PlayerController playerController;
-    private string animatorBoolName;
-
-
-    public PlayerDashState(PlayerController playerController, string animatorBoolName)
+    public PlayerDashState(Player player, FSM fsm, string animatorBoolName) : base(player, fsm, animatorBoolName)
     {
-        this.playerController = playerController;
-        this.animatorBoolName = animatorBoolName;
     }
 
-    public void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
+    public override void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
     {
-
-        playerController.SetBool(animatorBoolName, true);
-        //TODO: 这里应该调用技能组件的冲刺方法 生成特效
-        // playerController.skill.dash.UseSkill();
-        playerController.StartDashCoroutine();
+        playerController.StartDashCoroutine(player);
 
     }
 
-    public void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
+    public override void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
     {
-        playerController.SetBool(animatorBoolName, false);
+        
 
     }
-    public void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
+    public override void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
     {
         // 启动冲刺并设置冲刺方向
-        playerController.SetVecolity(playerInfo.dashSpeed * playerController.dashDir, 0f);
+        player.SetVecolity(playerInfo.dashSpeed * playerController.dashDir, 0f);
         
         if(!playerController.isDashing) //冲刺结束
         { 
         
-            if(playerController.IsGroundDetected())
+            if(player.IsGroundDetected())
             {
-                playerController.ChangeState(StateType.Idle);
+               fsm.ChangeState(StateType.Idle); 
 
             }
             else
             {
-                playerController.rb.velocity = new Vector2(playerInfo.airDashOverXvelocity * playerController.facing, -playerInfo.airDashOverYvelocity);
-                playerController.ChangeState(StateType.Down);
+                rb.velocity = new Vector2(playerInfo.airDashOverXvelocity * player.facing, -playerInfo.airDashOverYvelocity);
+                fsm.ChangeState(StateType.Down);
             }
         }
 

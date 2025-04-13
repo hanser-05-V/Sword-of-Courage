@@ -5945,7 +5945,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1165511027432822369, guid: 13a78c85e91f85a41a25330a6e48a711, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1165511027432822369, guid: 13a78c85e91f85a41a25330a6e48a711, type: 3}
       propertyPath: m_TagString
@@ -6135,7 +6135,8 @@ PrefabInstance:
       propertyPath: shadowAplhaDuration
       value: 0.25
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 536111921131943325, guid: 13a78c85e91f85a41a25330a6e48a711, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 13a78c85e91f85a41a25330a6e48a711, type: 3}
 --- !u!1 &302458692
 GameObject:
@@ -14718,7 +14719,7 @@ Transform:
   m_GameObject: {fileID: 853761903}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_Children: []
   m_Father: {fileID: 2118918295}
   m_RootOrder: 0
@@ -14733,7 +14734,7 @@ Animator:
   m_GameObject: {fileID: 853761903}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: fc5ee38cff87a264bbc81c21412e196e, type: 2}
+  m_Controller: {fileID: 9100000, guid: dd35f001e8b1bf04d9f25c3bef374017, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -31275,7 +31276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 309b1b42470758b4199dd849e196e0ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController: {fileID: 532935130}
+  player: {fileID: 0}
 --- !u!1 &1607312170
 GameObject:
   m_ObjectHideFlags: 0
@@ -38623,7 +38624,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2118918294}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -33.33, y: -2.23, z: 0}
+  m_LocalPosition: {x: -42.77, y: -2.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 853761904}
@@ -38664,8 +38665,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0983963, y: 0.21415544}
-  m_Size: {x: 2.2479706, y: 4.391763}
+  m_Offset: {x: 0.073667526, y: 0.084334254}
+  m_Size: {x: 1.1352196, y: 2.0797093}
   m_Direction: 0
 --- !u!4 &2127602456 stripped
 Transform:

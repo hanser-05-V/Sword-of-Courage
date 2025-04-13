@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,9 +7,10 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Analytics;
 
-public class PlayerController : Entity //玩家类型协助者 
-{
- 
+
+[Serializable]
+public class PlayerController 
+{ 
     #region 玩家特殊行为变量
     [Header("冲刺相关")]
     public bool isDashing; // 用于判断是否正在冲刺
@@ -33,9 +35,8 @@ public class PlayerController : Entity //玩家类型协助者
     private Vector3 endPos; // 用于记录角色结束位置
     #endregion
     
-    protected override void Start()
+    public void CreatShadowBegain()
     {
-        base.Start();
         //开始时候生成 sprite 列表 到列表
         for(int i=0; i<shadowCount;i++)
         {
@@ -48,39 +49,24 @@ public class PlayerController : Entity //玩家类型协助者
 
     }
 
-    #region 动画相关方法
-
-    #endregion
-    
-    protected override void Update()
-    {
-        base.Update();
-        //所有状态 公共行为
-        dashCoolTimer -= Time.deltaTime; // 冲刺冷却时间减少
-        if(Input.GetKeyDown(KeyCode.Q) )
-        {
-            StartCoroutine(StartDash());// 冲刺
-        }
-    }
-
     #region  冲刺相关
-    public IEnumerator StartDash() // 冲刺协程
+    public IEnumerator StartDash(Player player) // 冲刺协程
     {
         if (CanDash())
         {
             isDashing = true;
-            startPos = targetObject.position; // 记录起始位置 方便残影生成
+            startPos = player.transform.position; // 记录起始位置 方便残影生成
             // 如果可以冲刺，则开始冲刺协程
             dashDir = Input.GetAxisRaw("Horizontal");
             if (dashDir == 0)
             {
-                dashDir = facing;
+                dashDir = player.facing;
             }
-            ChangeState(StateType.Dash); // 进入冲刺状态
+            player.playerFSM.ChangeState(StateType.Dash); // 进入冲刺状态
         
             yield return new WaitForSeconds(dashDuration);
 
-            endPos = targetObject.position; // 记录结束位置 方便残影生成
+            endPos = player.transform.position; // 记录结束位置 方便残影生成
             isDashing = false;
         }
     }
@@ -97,7 +83,7 @@ public class PlayerController : Entity //玩家类型协助者
     
     #endregion
     #region  残影生成相关
-    private void CreateShadow(Vector3 posion)// 创建单个残影
+    private void CreateShadow(Vector3 posion,Player player)// 创建单个残影
     {
         float distance = Vector3.Distance(posion,endPos);// 当前位置距离终点的距离
         SpriteRenderer dashSR = GetAvailableShadow();
@@ -114,7 +100,7 @@ public class PlayerController : Entity //玩家类型协助者
         {
             dashSR.transform.localRotation = Quaternion.Euler(0, 180, 0); // 朝左
         }
-        dashSR.sprite = sp.sprite;
+        dashSR.sprite = player.sp.sprite;
         dashSR.color = new Color(dashSR.color.r, dashSR.color.g, dashSR.color.b, 1); // 重置透明度
 
         // 启动淡出动画（持续shadowLifetime秒后消失）
@@ -137,7 +123,7 @@ public class PlayerController : Entity //玩家类型协助者
         }
         return shadowList.Last();
     }
-    IEnumerator DashRoutine()
+    IEnumerator DashRoutine(Player player)
     {
         // 清空旧路径数据 
         dashPathPosition.Clear();
@@ -146,8 +132,8 @@ public class PlayerController : Entity //玩家类型协助者
         while (isDashing)
         {
             int index = 0;
-            dashPathPosition.Add(targetObject.position); // 改为记录目标对象的移动轨迹
-            CreateShadow(dashPathPosition[index]); //从第一个位置创建残影
+            dashPathPosition.Add(player.transform.position); // 改为记录目标对象的移动轨迹
+            CreateShadow(dashPathPosition[index],player); //从第一个位置创建残影
             yield return new WaitForSeconds(shadowInterval);
             index++;
             if (index > dashPathPosition.Count)
@@ -157,9 +143,9 @@ public class PlayerController : Entity //玩家类型协助者
         }
     }
 
-    public void StartDashCoroutine() // 启动冲刺协程
+    public void StartDashCoroutine(Player player) // 启动冲刺协程
     {
-        StartCoroutine(DashRoutine());
+        player.StartCoroutine(DashRoutine(player));
     } 
     #endregion
 }

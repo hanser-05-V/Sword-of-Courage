@@ -5,11 +5,8 @@ using UnityEngine;
 
 public class PlayerMoveState : PlayerGroundState, IState
 {
-    
-    private PlayerController playerController;
-    public PlayerMoveState(PlayerController playerController,string animatorBoolName) : base(playerController,animatorBoolName)
+    public PlayerMoveState(Player player, FSM fsm, string animatorBoolName) : base(player, fsm, animatorBoolName)
     {
-        this.playerController = playerController;
     }
 
     public override void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
@@ -28,11 +25,11 @@ public class PlayerMoveState : PlayerGroundState, IState
         base.Onupdate(playerInfo, playerStats);
         // playerController.ChangeXvelocity(playerController.xInput * playerInfo.moveSpeed); //设置x轴速度
         
-        playerController.SetVecolity(playerController.xInput * playerInfo.moveSpeed, playerController.rb.velocity.y); //设置速度
+        player.SetVecolity(xInput * playerInfo.moveSpeed, rb.velocity.y); //设置速度
 
-        if (playerController.xInput == 0) //如果x轴速度为0，则播放空闲动画
+        if (xInput == 0) //如果x轴速度为0，则播放空闲动画
         {
-            playerController.ChangeState(StateType.Idle);
+            fsm.ChangeState(StateType.Idle);
         }
         
         

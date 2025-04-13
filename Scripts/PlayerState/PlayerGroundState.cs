@@ -3,51 +3,47 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 
-public class PlayerGroundState : IState // 地面状态 公共方法基类
+public class PlayerGroundState : PlayerState
 {
 
 
     private bool isJumping = false;
-    private PlayerController playerController;
-    private string animatorBoolName;
-    
 
-    public PlayerGroundState(PlayerController playerController,string animatorBoolName)
+    public PlayerGroundState(Player player, FSM fsm, string animatorBoolName) : base(player, fsm, animatorBoolName)
     {
-        this.playerController = playerController;
-        this.animatorBoolName = animatorBoolName;
     }
-    public virtual void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
+
+    public override void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
     {
-        playerController.SetBool(animatorBoolName, true); // 切换动画bool参数为true
+        base.OnEnter(playerInfo, playerStats);
   
     }
 
-    public virtual void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
+    public override void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
     {
-        playerController.SetBool(animatorBoolName, false); // 切换动画bool参数为false
+        base.OnExit(playerInfo, playerStats);
     }
 
-    public virtual void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
+    public override void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
     {
         
-        if(Input.GetKeyDown(KeyCode.Space )&& playerController.IsGroundDetected()) //地面上 按下空格 跳跃
+        if(Input.GetKeyDown(KeyCode.Space )&& player.IsGroundDetected()) //地面上 按下空格 跳跃
         {
             isJumping = true;
             // playerController.ShowShadow();
             // playerController.ChangeYvelocity(0); // 重置y轴速度
-            playerController.SetVecolity(playerController.rb.velocity.x,0); //重置Y轴速度
-            playerController.ChangeState(StateType.Jump);
+            player.SetVecolity(rb.velocity.x,0); //重置Y轴速度
+            fsm.ChangeState(StateType.Jump);
         }
       
-        if(!playerController.IsGroundDetected()) //没有检测到地面 切换到空中状态 （空中冲刺）
+        if(!player.IsGroundDetected()) //没有检测到地面 切换到空中状态 （空中冲刺）
         {
-            playerController.ChangeState(StateType.Air);
+            fsm.ChangeState(StateType.Air);
         }
 
         if(Input.GetMouseButtonDown(0))
         {
-            playerController.ChangeState(StateType.Attack);
+            fsm.ChangeState(StateType.Attack);
         }
         
     }

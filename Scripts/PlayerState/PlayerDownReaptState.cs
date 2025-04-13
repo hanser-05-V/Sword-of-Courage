@@ -3,50 +3,44 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class PlayerDownReaptState : IState
+public class PlayerDownReaptState : PlayerState
 {
-
-    private PlayerController playerController;
-
-    private string animatorBoolName;
-
-    public PlayerDownReaptState(PlayerController playerController, string animatorBoolName)
+    public PlayerDownReaptState(Player player, FSM fsm, string animatorBoolName) : base(player, fsm, animatorBoolName)
     {
-        this.playerController = playerController;
-        this.animatorBoolName = animatorBoolName;
     }
 
-    public void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
+    public override void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
     {
-        playerController.SetBool(animatorBoolName, true);
+        base.OnEnter(playerInfo, playerStats);
     }
 
-    public void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
+    public override void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
     {
-        playerController.SetBool(animatorBoolName, false);
+        base.OnExit(playerInfo, playerStats);
     }
 
-    public void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
+    public override void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
     {
         
-        if(playerController.IsGroundDetected()) //检测到地面 变为静止状态
+        base.Onupdate(playerInfo, playerStats);
+        if(player.IsGroundDetected()) //检测到地面 变为静止状态
         {
             
-            playerController.SetVecolity(playerController.rb.velocity.x, 0);//设置Y速度为0
+            player.SetVecolity(rb.velocity.x, 0);//设置Y速度为0
 
-            if(playerController.xInput!=0) //落地瞬间水平方向有输入
+            if(xInput!=0) //落地瞬间水平方向有输入
             {
-                playerController.ChangeState(StateType.Move);
+                fsm.ChangeState(StateType.Move);
             }
             else//落地瞬间水平方向无输入
             {
-                playerController.ChangeState(StateType.DownToGround);
+                fsm.ChangeState(StateType.DownToGround);
             }
         } 
-        if(playerController.xInput != 0) //空中水平方向有输入
+        if(xInput != 0) //空中水平方向有输入
         {
-            playerController.SetVecolity(playerInfo.moveSpeed * playerController.xInput * 0.8f, playerController.rb.velocity.y);
+            player.SetVecolity(playerInfo.moveSpeed * xInput * 0.8f, rb.velocity.y);
         }  
-        playerController.SetFloat("Yvelocity",playerController.rb.velocity.y);
+    
     }
 }

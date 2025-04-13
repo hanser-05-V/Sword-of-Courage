@@ -6,9 +6,10 @@ public class PlayerState :IState
 {
     
     protected PlayerController playerController; //玩家动画控制器
-    protected Player_TEst1 player; //玩家对象
+    protected Player player; //玩家对象
     protected string animatorBoolName; //动画bool名称
-    protected Player_FSM fsm; //玩家状态机
+    protected FSM fsm; //玩家状态机
+    public SkillManager skill {get ; private set ; }  // 技能管理组件
 
     protected Rigidbody2D rb;    
 
@@ -18,7 +19,7 @@ public class PlayerState :IState
     protected float stateTimer; //状态持续时间计时器
     public bool triggerCalled; //记录攻击结束
     
-    public PlayerState(Player_TEst1 player,Player_FSM fsm,string animatorBoolName)
+    public PlayerState(Player player,FSM fsm,string animatorBoolName)
     {
         this.player = player;
         this.fsm = fsm;
@@ -28,6 +29,10 @@ public class PlayerState :IState
     {
         player.animator.SetBool(animatorBoolName, true);
         rb = player.rb;
+        playerController = player.playerController;
+        
+
+        skill = SkillManager.Instance; //获取技能管理组件
     }
 
     public virtual void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)

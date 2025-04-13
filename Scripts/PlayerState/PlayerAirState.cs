@@ -2,73 +2,65 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAirState : IState //玩家空中状态
+public class PlayerAirState : PlayerState //玩家空中状态
 {
-    protected PlayerController playerController;
-    private string animatorBoolName;
-
-  
-    public PlayerAirState(PlayerController playerController,string animatorBoolName)
+    public PlayerAirState(Player player, FSM fsm, string animatorBoolName) : base(player, fsm, animatorBoolName)
     {
-        this.playerController = playerController;
-        this.animatorBoolName = animatorBoolName;
-    }
-  
-    public virtual void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
-    {
-        playerController.SetBool(animatorBoolName, true);
-
     }
 
-    public virtual void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
+    public override void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
     {
-        playerController.SetBool(animatorBoolName, false);
+        base.OnEnter(playerInfo, playerStats);
     }
 
-    public virtual void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
+    public override void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
     {
+        base.OnExit(playerInfo, playerStats);
+    }
+
+    public override void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
+    {
+        base.Onupdate(playerInfo, playerStats);
       
-        
-        
-        if(playerController.xInput != 0) //空中水平方向有输入
+        if(xInput != 0) //空中水平方向有输入
         {
-            playerController.SetVecolity(playerInfo.moveSpeed * playerController.xInput * 0.8f, playerController.rb.velocity.y);
+            player.SetVecolity(playerInfo.moveSpeed * xInput * 0.8f, rb.velocity.y);
         }
         
         //速度判断播放状态
-        if(Mathf.Abs(playerController.rb.velocity.y) > playerInfo.downYvelocityMin)
+        if(Mathf.Abs(rb.velocity.y) > playerInfo.downYvelocityMin)
         {
-            playerController.ChangeState(StateType.Down);
+            fsm.ChangeState(StateType.Down);
         }
        
 
-        if(playerController.IsGroundDetected()) //检测到地面 变为静止状态
+        if(player.IsGroundDetected()) //检测到地面 变为静止状态
         {
             
-            playerController.SetVecolity(playerController.rb.velocity.x, 0);//设置Y速度为0
+            player.SetVecolity(rb.velocity.x, 0);//设置Y速度为0
 
-            if(playerController.xInput!=0) //落地瞬间水平方向有输入
+            if(xInput!=0) //落地瞬间水平方向有输入
             {
-                playerController.ChangeState(StateType.Move);
+                fsm.ChangeState(StateType.Move);
             }
             else//落地瞬间水平方向无输入
             {
-                playerController.ChangeState(StateType.DownToGround);
+                fsm.ChangeState(StateType.DownToGround);
             }
             if(Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire1"))
             {
-                playerController.ChangeState(StateType.Jump); 
+                fsm.ChangeState(StateType.Jump); 
             } 
         } 
 
-        if(playerController.IsheadDetected()) //防止玩家之间飞出去
+        if(player.IsheadDetected()) //防止玩家之间飞出去
         {
         
-            playerController.SetVecolity(0,playerController.rb.velocity.y);
-            playerController.ChangeState(StateType.Down);
+            player.SetVecolity(0,rb.velocity.y);
+            fsm.ChangeState(StateType.Down);
         }
 
-        playerController.SetFloat("Yvelocity",playerController.rb.velocity.y);
+        
     }
 
    

@@ -3,36 +3,36 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 
-public class PlayerJumpState : IState
+public class PlayerJumpState : PlayerState
 {
 
-   private PlayerController playerController;
     private float currentJumpTime;
     private bool isJumping;
     private string animationName;
 
-    public PlayerJumpState(PlayerController playerController , string  animationName)
+    public PlayerJumpState(Player player, FSM fsm, string animatorBoolName) : base(player, fsm, animatorBoolName)
     {
-        this.playerController = playerController;
-        this.animationName = animationName;
     }
 
-    public void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
+    public override void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
     {
+        base.OnEnter(playerInfo, playerStats);
         currentJumpTime = 0;
         isJumping = true;
-        // 进入跳跃状态时播放跳跃动画
-        playerController.SetBool(animationName, true);
+      
+
     }
 
-    public void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
+    public override void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
     {
-        // 退出跳跃状态时做一些清理工作（如果有需要）
-        playerController.SetBool(animationName, false);
+        base.OnExit(playerInfo, playerStats);
+    
+      
     }
-    public void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
+    public override void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
     {
-       
+        base.Onupdate(playerInfo, playerStats);
+
         if (isJumping)
         {
             //生成残影
@@ -44,7 +44,7 @@ public class PlayerJumpState : IState
         {
      
             isJumping = false;    
-            playerController.ChangeState(StateType.Air); // 切换到空中状态
+            fsm.ChangeState(StateType.Air); // 切换到空中状态
 
         }
 
@@ -58,7 +58,7 @@ public class PlayerJumpState : IState
                 // 使用Sin函数实现跳跃的非线性加速
                 float t = currentJumpTime / playerInfo.jumpTime;
                 float force = Mathf.Lerp(playerInfo.jumpMinHeight, playerInfo.jumpForce, Mathf.Sin(t * Mathf.PI * 0.5f));
-                playerController.SetVecolity(playerController.rb.velocity.x, force);
+                player.SetVecolity(rb.velocity.x, force);
             }
         }
 

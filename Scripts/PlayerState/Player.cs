@@ -2,30 +2,57 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum StateType //状态枚举
+{
+    Idle,
+    Move,MoveBefore,
+    Jump,DownToGround,
+    Down,DownRepeat,DownHeavy,
+    Attack,Attack2,Attack3,
+    Died, Dash,
+    Air,Ground,
+}
+
 public class Player : Entity
 {
-    
-    public  PlayerController playerController;
-    
-    private PlayerInfo playerInfo;
-    private PlayerStats playerStats;
-    public Player (PlayerInfo playerInfo, PlayerStats playerStats)
-    {
-        this.playerInfo = playerInfo;
-        this.playerStats = playerStats;
-    }
-    
-    override protected void Start()
-    {
-        base.Start();
-        // controller = GetComponentInChildren<PlayerController>();
-    }
+    public FSM playerFSM {get; private set;} //玩家状态机
+    public PlayerInfo playerInfo ; //玩家信息 
+    public PlayerController playerController ;//玩家控制器
 
+   
     protected override void Awake()
     {
         base.Awake();
-          // playerController = new PlayerController(this); //实例化角色控制器
+        playerFSM = new FSM(); //实例化玩家状态机
 
+        playerFSM.stateDic.Add(StateType.Idle,new PlayerIdleState(this,playerFSM,"Idle"));
+        playerFSM.stateDic.Add(StateType.Move,new PlayerMoveState(this,playerFSM,"Move"));
+        playerFSM.stateDic.Add(StateType.MoveBefore,new PlayerMoveBeforeState(this,playerFSM,"MoveBefore"));
+        playerFSM.stateDic.Add(StateType.Jump,new PlayerJumpState(this,playerFSM,"Jump"));
+        playerFSM.stateDic.Add(StateType.Air,new PlayerAirState(this,playerFSM,"Jump"));
+
+        playerFSM.stateDic.Add(StateType.DownToGround,new PlayerDownToGroundState(this,playerFSM,"DownToGround"));
+        playerFSM.stateDic.Add(StateType.Down,new PlayerDownState(this,playerFSM,"Down"));
+        playerFSM.stateDic.Add(StateType.DownRepeat,new PlayerDownReaptState(this,playerFSM,"DownRepeat"));
+        
+        playerFSM.stateDic.Add(StateType.Attack,new PlayerCombuAttackState(this,playerFSM,"Attack"));
+
+        playerFSM.InitState(StateType.Idle); //初始化状态
+    }
+    protected override void Start()
+    {
+        base.Start();
+        playerController.CreatShadowBegain(); //创建初始残影列表
+    }
+    protected override void Update()
+    {
+        base.Update();
+        playerFSM.currentState.Onupdate(playerInfo,null);//更新状态状态机
+        if(Input.GetKeyDown(KeyCode.Q) )
+        {
+            StartCoroutine(playerController.StartDash(this));// 冲刺
+        }
     }
 
 }

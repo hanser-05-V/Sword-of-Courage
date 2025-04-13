@@ -6,15 +6,14 @@ using UnityEngine;
 
 public class PlayerIdleState : PlayerGroundState
 {
-    private PlayerController playerController;
-    public PlayerIdleState(PlayerController playerController,string animatorBoolName) : base(playerController,animatorBoolName)
+    public PlayerIdleState(Player player, FSM fsm, string animatorBoolName) : base(player, fsm, animatorBoolName)
     {
-        this.playerController = playerController;
     }
+
     public override void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
     {
         base.OnEnter(playerInfo, playerStats);
-        playerController.SetZeroVecolity();
+        player.SetZeroVecolity();
       
     }
 
@@ -28,9 +27,9 @@ public class PlayerIdleState : PlayerGroundState
     {
         base.Onupdate(playerInfo, playerStats);
 
-        if(playerController.xInput!= 0)//如果有输入
+        if(xInput!= 0)//如果有输入
         {
-            playerController.ChangeState(StateType.MoveBefore);
+            fsm.ChangeState(StateType.MoveBefore);
         }
     }
 }

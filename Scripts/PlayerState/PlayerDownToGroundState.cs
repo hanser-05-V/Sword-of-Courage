@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class PlayerDownToGroundState : PlayerGroundState
 {
-
-    public PlayerDownToGroundState(PlayerController playerController, string animatorBoolName) : base(playerController, animatorBoolName)
+    public PlayerDownToGroundState(Player player, FSM fsm, string animatorBoolName) : base(player, fsm, animatorBoolName)
     {
     }
 

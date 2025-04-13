@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PlayerIdleState_Test : PlayerState
 {
-    public PlayerIdleState_Test(Player_TEst1 player, Player_FSM fsm, string animatorBoolName) : base(player, fsm, animatorBoolName)
+    public PlayerIdleState_Test(Player player, FSM fsm, string animatorBoolName) : base(player, fsm, animatorBoolName)
     {
     }
 
-     public override void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
+    public override void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
     {
         base.OnEnter(playerInfo, playerStats);
         Debug.Log("进入静止状态");

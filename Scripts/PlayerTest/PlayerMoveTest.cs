@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMoveTest : PlayerState
 {
-    public PlayerMoveTest(Player_TEst1 player, Player_FSM fsm, string animatorBoolName) : base(player, fsm, animatorBoolName)
+    public PlayerMoveTest(Player player, FSM fsm, string animatorBoolName) : base(player, fsm, animatorBoolName)
     {
     }
 
