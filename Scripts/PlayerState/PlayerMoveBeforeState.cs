@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerMoveBeforeState : PlayerGroundState,IState
 {
+    private PlayerController playerController;
     public PlayerMoveBeforeState(PlayerController playerController, string animatorBoolName) : base(playerController, animatorBoolName)
     {
+        this.playerController = playerController;
     }
 
     public override void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)

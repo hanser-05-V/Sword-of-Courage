@@ -1,0 +1,36 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Player_TEst1 : MonoBehaviour
+{
+
+    public Player_FSM playerFSM {get; private set;} //玩家状态机
+    public PlayerInfo playerInfo ; //玩家信息 
+
+    #region  组件相关
+    [SerializeField] public Animator animator ; //动画播放器
+    [SerializeField] public Rigidbody2D rb;  //刚体组件
+  
+
+    #endregion
+    void Awake()
+    {
+        playerFSM = new Player_FSM(); //实例化玩家状态机
+
+        playerFSM.stateDic.Add(StateType.Idle,new PlayerIdleState_Test(this,playerFSM,"Idle"));
+        playerFSM.stateDic.Add(StateType.Move,new PlayerMoveTest(this,playerFSM,"Move"));
+
+        playerFSM.InitState(StateType.Idle); //初始化状态
+    }
+    void Start()
+    {
+     
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        playerFSM.currentState.Onupdate(playerInfo,null);//更新状态状态机
+    }
+}

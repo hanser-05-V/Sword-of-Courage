@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class PlayerGroundState : IState // 地面状态 公共方法基类
 {
-    protected PlayerController playerController;
+
 
     private bool isJumping = false;
-    private string animatorBoolName; // 动画bool参数名
+    private PlayerController playerController;
+    private string animatorBoolName;
+    
 
     public PlayerGroundState(PlayerController playerController,string animatorBoolName)
     {
@@ -29,7 +31,7 @@ public class PlayerGroundState : IState // 地面状态 公共方法基类
     public virtual void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
     {
         
-        if((Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire1"))&& playerController.IsGroundDetected()) //地面上 按下空格 跳跃
+        if(Input.GetKeyDown(KeyCode.Space )&& playerController.IsGroundDetected()) //地面上 按下空格 跳跃
         {
             isJumping = true;
             // playerController.ShowShadow();
@@ -40,13 +42,13 @@ public class PlayerGroundState : IState // 地面状态 公共方法基类
       
         if(!playerController.IsGroundDetected()) //没有检测到地面 切换到空中状态 （空中冲刺）
         {
-       
             playerController.ChangeState(StateType.Air);
         }
 
-        // if(Input.GetMouseButtonDown(0)) // 按下鼠标左键 切换到攻击状态
-        // {
-        //     playerController.ChangeState(StateType.Attack1);
-        // }
+        if(Input.GetMouseButtonDown(0))
+        {
+            playerController.ChangeState(StateType.Attack);
+        }
+        
     }
 }

@@ -8,7 +8,7 @@ public enum StateType //状态枚举
     Move,MoveBefore,
     Jump,DownToGround,
     Down,DownRepeat,DownHeavy,
-    Attack1,Attack2,Attack3,
+    Attack,Attack2,Attack3,
     Died, Dash,
     Air,Ground,
 }
@@ -44,7 +44,7 @@ public class FSM : MonoBehaviour //状态机基类
         // stateDic.Add(StateType.Ground,new PlayerGroundState(playerController));
         stateDic.Add(StateType.Dash,new PlayerDashState(playerController,"Dash"));
 
-        stateDic.Add(StateType.Attack1 ,new PlayerCombuAttackState(playerController,"Attack") );
+        stateDic.Add(StateType.Attack ,new PlayerCombuAttackState(playerController,"Attack") );
 
 
     }

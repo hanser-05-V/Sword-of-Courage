@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class PlayerMoveState : PlayerGroundState, IState
 {
-
+    
+    private PlayerController playerController;
     public PlayerMoveState(PlayerController playerController,string animatorBoolName) : base(playerController,animatorBoolName)
     {
-        base.playerController = playerController;
+        this.playerController = playerController;
     }
 
     public override void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)

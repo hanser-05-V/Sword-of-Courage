@@ -1,36 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Net;
-using System.Security.Cryptography;
 using UnityEngine;
 
-public class PlayerIdleState : PlayerGroundState
+public class PlayerMoveTest : PlayerState
 {
-    private PlayerController playerController;
-    public PlayerIdleState(PlayerController playerController,string animatorBoolName) : base(playerController,animatorBoolName)
+    public PlayerMoveTest(Player_TEst1 player, Player_FSM fsm, string animatorBoolName) : base(player, fsm, animatorBoolName)
     {
-        this.playerController = playerController;
-    }
-    public override void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
-    {
-        base.OnEnter(playerInfo, playerStats);
-        playerController.SetZeroVecolity();
-      
     }
 
+    public override void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
+    {
+       
+        base.OnEnter(playerInfo, playerStats);
+     
+    }
     public override void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
     {
         base.OnExit(playerInfo, playerStats);
     }
-
-
     public override void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
     {
         base.Onupdate(playerInfo, playerStats);
-
-        if(playerController.xInput!= 0)//如果有输入
+        rb.velocity = new Vector2(playerInfo.moveSpeed * xInput, 0);
+        if(xInput ==0)
         {
-            playerController.ChangeState(StateType.MoveBefore);
+            fsm.ChangeState(StateType.Idle);
         }
     }
 }
