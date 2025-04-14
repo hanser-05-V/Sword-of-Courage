@@ -11,6 +11,7 @@ public class PlayerDashState : PlayerState
 
     public override void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
     {
+        base.OnEnter(playerInfo, playerStats);
         playerController.StartDashCoroutine(player);
 
     }
@@ -18,11 +19,13 @@ public class PlayerDashState : PlayerState
     public override void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
     {
         
-
+        base.OnExit(playerInfo, playerStats);
     }
     public override void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
     {
+        base.Onupdate(playerInfo, playerStats);
         // 启动冲刺并设置冲刺方向
+        
         player.SetVecolity(playerInfo.dashSpeed * playerController.dashDir, 0f);
         
         if(!playerController.isDashing) //冲刺结束
@@ -31,7 +34,7 @@ public class PlayerDashState : PlayerState
             if(player.IsGroundDetected())
             {
                fsm.ChangeState(StateType.Idle); 
-
+            
             }
             else
             {

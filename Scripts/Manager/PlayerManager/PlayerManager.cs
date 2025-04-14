@@ -5,5 +5,5 @@ using UnityEngine;
 public class PlayerManager : SingletonMono<PlayerManager>
 {
 
-    public  GameObject player;
+    public  Player player;
 }

@@ -26,8 +26,8 @@ public class PlayerGroundState : PlayerState
 
     public override void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
     {
-        
-        if(Input.GetKeyDown(KeyCode.Space )&& player.IsGroundDetected()) //地面上 按下空格 跳跃
+        base.Onupdate(playerInfo, playerStats);
+        if((Input.GetKeyDown(KeyCode.Space )|| Input.GetButton("Fire1") )&& player.IsGroundDetected()) //地面上 按下空格 跳跃
         {
             isJumping = true;
             // playerController.ShowShadow();
@@ -41,10 +41,10 @@ public class PlayerGroundState : PlayerState
             fsm.ChangeState(StateType.Air);
         }
 
-        if(Input.GetMouseButtonDown(0))
-        {
-            fsm.ChangeState(StateType.Attack);
-        }
+        // if(Input.GetMouseButtonDown(0))
+        // {
+        //     fsm.ChangeState(StateType.Attack);
+        // }
         
     }
 }

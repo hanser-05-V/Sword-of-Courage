@@ -20,7 +20,7 @@ public class Player : Entity
     public PlayerInfo playerInfo ; //玩家信息 
     public PlayerController playerController ;//玩家控制器
 
-   
+
     protected override void Awake()
     {
         base.Awake();
@@ -31,11 +31,12 @@ public class Player : Entity
         playerFSM.stateDic.Add(StateType.MoveBefore,new PlayerMoveBeforeState(this,playerFSM,"MoveBefore"));
         playerFSM.stateDic.Add(StateType.Jump,new PlayerJumpState(this,playerFSM,"Jump"));
         playerFSM.stateDic.Add(StateType.Air,new PlayerAirState(this,playerFSM,"Jump"));
+        playerFSM.stateDic.Add(StateType.Dash,new PlayerDashState(this,playerFSM,"Dash"));
 
         playerFSM.stateDic.Add(StateType.DownToGround,new PlayerDownToGroundState(this,playerFSM,"DownToGround"));
         playerFSM.stateDic.Add(StateType.Down,new PlayerDownState(this,playerFSM,"Down"));
         playerFSM.stateDic.Add(StateType.DownRepeat,new PlayerDownReaptState(this,playerFSM,"DownRepeat"));
-        
+
         playerFSM.stateDic.Add(StateType.Attack,new PlayerCombuAttackState(this,playerFSM,"Attack"));
 
         playerFSM.InitState(StateType.Idle); //初始化状态
@@ -43,15 +44,18 @@ public class Player : Entity
     protected override void Start()
     {
         base.Start();
-        playerController.CreatShadowBegain(); //创建初始残影列表
+        // playerController.CreatShadowBegain(); //创建初始残影列表
     }
     protected override void Update()
     {
         base.Update();
         playerFSM.currentState.Onupdate(playerInfo,null);//更新状态状态机
-        if(Input.GetKeyDown(KeyCode.Q) )
+        
+        if((Input.GetKeyDown(KeyCode.Q ) || Input.GetButtonDown("Fire3"))  && SkillManager.Instance.dash.CanUseSkill())
         {
-            StartCoroutine(playerController.StartDash(this));// 冲刺
+            
+            StartCoroutine(playerController.StartDash(this));
+            
         }
     }
 

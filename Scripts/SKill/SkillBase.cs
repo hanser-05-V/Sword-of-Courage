@@ -7,13 +7,11 @@ public abstract class SkillBase : MonoBehaviour
    [SerializeField] protected float cooldown;
     protected float cooldownTimer;
 
-    
-    //TODO : 玩家脚本应用
-    // protected Player player;
+    protected Player player;
 
     protected virtual void Start()
     {
-        // player = PlayerManager.Instance.player;
+        player = PlayerManager.Instance.player;
     }
     protected virtual void Update()
     {

@@ -20,24 +20,14 @@ public class Entity : MonoBehaviour // 实体类的公共行为
     public LayerMask groundLayer; // 地面层
 
     [Header("组件相关")]
-    // [SerializeField] protected FSM fsm; // 状态机组件
-    // [SerializeField] protected Animator animator; // 动画组件
-    // [SerializeField] protected SpriteRenderer sp; // 角色渲染器组件
-    
      #region  组件相关
     [SerializeField] public Animator animator ; //动画播放器
     [SerializeField] public Rigidbody2D rb;  //刚体组件
     public SpriteRenderer sp; //角色渲染器组件
-
     #endregion
-
-    
     public int facing = 1; // 角色的朝向，1为右，-1为左
     private bool isFacingRight = true; // 角色的默认朝向，true为右，false为左
 
-    public float xInput {get ; private set;} // 角色的水平方向输入值
-
-   
     
     protected  virtual void Update()
     {

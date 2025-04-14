@@ -14,6 +14,7 @@ public class PlayerIdleState : PlayerGroundState
     {
         base.OnEnter(playerInfo, playerStats);
         player.SetZeroVecolity();
+       
       
     }
 
@@ -26,7 +27,6 @@ public class PlayerIdleState : PlayerGroundState
     public override void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
     {
         base.Onupdate(playerInfo, playerStats);
-
         if(xInput!= 0)//如果有输入
         {
             fsm.ChangeState(StateType.MoveBefore);

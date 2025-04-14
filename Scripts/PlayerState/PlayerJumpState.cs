@@ -8,7 +8,6 @@ public class PlayerJumpState : PlayerState
 
     private float currentJumpTime;
     private bool isJumping;
-    private string animationName;
 
     public PlayerJumpState(Player player, FSM fsm, string animatorBoolName) : base(player, fsm, animatorBoolName)
     {

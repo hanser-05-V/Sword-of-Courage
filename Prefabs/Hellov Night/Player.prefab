@@ -40,7 +40,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5611151462020632356}
-  - component: {fileID: 5611151462020632357}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -65,41 +64,6 @@ Transform:
   m_Father: {fileID: 5611151463856023219}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &5611151462020632357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5611151462020632359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7508e2df5213e34c8a649bac2ae0f83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundCheck: {fileID: 5611151463730819873}
-  groundChenkDistance: 0.45
-  wallCheck: {fileID: 5611151463085996197}
-  wallCheckDistance: 0.2
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  fsm: {fileID: 5611151462749313148}
-  animator: {fileID: 5611151463472889962}
-  sp: {fileID: 5611151463472889963}
-  rb: {fileID: 5611151463856023217}
-  facing: 1
-  xInput: 0
-  isDashing: 0
-  dashDuration: 0.4
-  dashCooldown: 1
-  dashDir: 0
-  shadowParent: {fileID: 5611151463856023219}
-  shadowCount: 3
-  shadowInterval: 0.15
-  shadowDuration: 0.1
-  changeSpeed: 0.2
-  verticalOffset: 0.15
 --- !u!1 &5611151462749313150
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,7 +73,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5611151462749313151}
-  - component: {fileID: 5611151462749313148}
   m_Layer: 0
   m_Name: FSM
   m_TagString: Untagged
@@ -131,31 +94,6 @@ Transform:
   m_Father: {fileID: 5611151463856023219}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5611151462749313148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5611151462749313150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4470c3be27ab939419f40d1ac1f06a9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerInfo:
-    moveSpeed: 10
-    jumpForce: 23
-    jumpTime: 0.4
-    jumpMinHeight: 1
-    jumpDuration: 1
-    repeatYvelocityMin: 15
-    downYvelocityMin: 11
-    dashSpeed: 20
-    airDashOverYvelocity: 8
-    airDashOverXvelocity: 10
-  playerStats: {fileID: 11400000, guid: aca49a4e6888f0947889a02f2fdccdd2, type: 2}
-  playerController: {fileID: 5611151462020632357}
 --- !u!1 &5611151463085996196
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,10 +255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 309b1b42470758b4199dd849e196e0ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 5611151463856023217}
-  playerController: {fileID: 5611151462020632357}
-  attackRightPrefab: {fileID: 0}
-  attackEffectParent: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1 &5611151463730819872
 GameObject:
   m_ObjectHideFlags: 0

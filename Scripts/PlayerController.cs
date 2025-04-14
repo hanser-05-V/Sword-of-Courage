@@ -7,9 +7,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Analytics;
 
-
-[Serializable]
-public class PlayerController 
+public class PlayerController : MonoBehaviour
 { 
     #region 玩家特殊行为变量
     [Header("冲刺相关")]
@@ -27,14 +25,16 @@ public class PlayerController
     [SerializeField] private int shadowCount = 5; // 用于控制残影的数量
     [SerializeField] private float shadowInterval = 0.15f; // 用于控制残影生成的间隔
     [SerializeField] private float shadowAplhaDuration = 0.2f; // 用于控制残影持续时间
-    [SerializeField] private float smoothSpeed =5f; // 用于控制残影平滑速度
-    [SerializeField] private float offset = 1f; // 用于设置残影的垂直偏移量
-    private float shadowTimer; // 用于控制残影生成的计时器
-
+    // [SerializeField] private float smoothSpeed =5f; // 用于控制残影平滑速度
+    [SerializeField] private float offset = 1f; // 用于设置残影的偏移量
+ 
     private Vector3 startPos; // 用于记录角色起始位置
     private Vector3 endPos; // 用于记录角色结束位置
     #endregion
-    
+    void Start()
+    {
+        CreatShadowBegain(); // 创建残影缓存池
+    }
     public void CreatShadowBegain()
     {
         //开始时候生成 sprite 列表 到列表
@@ -46,14 +46,13 @@ public class PlayerController
             shadow.gameObject.SetActive(false); // 隐藏残影
             shadowList.Add(shadow);// 添加到列表
         }
-
     }
 
     #region  冲刺相关
     public IEnumerator StartDash(Player player) // 冲刺协程
     {
-        if (CanDash())
-        {
+        // if (CanDash())
+        // {
             isDashing = true;
             startPos = player.transform.position; // 记录起始位置 方便残影生成
             // 如果可以冲刺，则开始冲刺协程
@@ -68,7 +67,7 @@ public class PlayerController
 
             endPos = player.transform.position; // 记录结束位置 方便残影生成
             isDashing = false;
-        }
+        // }
     }
     private bool CanDash() // 判断是否可以冲刺
     {
@@ -89,23 +88,14 @@ public class PlayerController
         SpriteRenderer dashSR = GetAvailableShadow();
         dashSR.gameObject.SetActive(true);
         // dashSR.transform.position = Vector3.Lerp(startPos,endPos,smoothSpeed* Time.deltaTime ); //位置插值 生成残影
-
         dashSR.transform.position = posion; // 直接设置位置
     
-        if (dashDir == 1)
-        {
-            dashSR.transform.localRotation = Quaternion.identity; // 朝右
-        }
-        else
-        {
-            dashSR.transform.localRotation = Quaternion.Euler(0, 180, 0); // 朝左
-        }
         dashSR.sprite = player.sp.sprite;
         dashSR.color = new Color(dashSR.color.r, dashSR.color.g, dashSR.color.b, 1); // 重置透明度
 
         // 启动淡出动画（持续shadowLifetime秒后消失）
         float dashDuration = Mathf.Clamp(distance /2f,0.1f,shadowAplhaDuration);// 计算残影持续时间
-        dashSR.DOFade(0, shadowAplhaDuration)
+        dashSR.DOFade(0, dashDuration)
             .OnComplete(() => dashSR.gameObject.SetActive(false));
      }
     private SpriteRenderer GetAvailableShadow() //残影缓存池
@@ -127,22 +117,55 @@ public class PlayerController
     {
         // 清空旧路径数据 
         dashPathPosition.Clear();
-    
-        // 记录冲刺路径
+        // // 记录冲刺路径
+        // while (isDashing)
+        // {
+        //     int index = 0;
+        //     Debug.Log("冲刺路径：" + index);
+        //     dashPathPosition.Add(player.transform.position); // 改为记录目标对象的移动轨迹
+        //     CreateShadow(dashPathPosition[index],player); //从第一个位置创建残影
+        //     yield return new WaitForSeconds(shadowInterval);
+        //     index++;
+        //     if (index > dashPathPosition.Count)
+        //     {
+        //         index = 0;
+        //     }
+        // }
+
+        // 记录玩家的路径点
+        Vector3 previousPosition = player.transform.position;
+        dashPathPosition.Add(previousPosition);
+
         while (isDashing)
         {
-            int index = 0;
-            dashPathPosition.Add(player.transform.position); // 改为记录目标对象的移动轨迹
-            CreateShadow(dashPathPosition[index],player); //从第一个位置创建残影
-            yield return new WaitForSeconds(shadowInterval);
-            index++;
-            if (index > dashPathPosition.Count)
+            // 记录玩家新的位置
+            Vector3 currentPosition = player.transform.position;
+
+            // 如果当前位置与上一个位置不同，则添加新的路径点
+            if (currentPosition != previousPosition)
             {
-                index = 0;
+                dashPathPosition.Add(currentPosition);
+                previousPosition = currentPosition;
+            }
+        // 创建残影：对历史路径点进行线性插值
+        for (int i = 1; i < dashPathPosition.Count; i++)
+        {
+            // 获取两个相邻点
+            Vector3 startPoint = dashPathPosition[i - 1];
+            Vector3 endPoint = dashPathPosition[i];
+
+            // 计算插值点的数量，假设每两个路径点之间生成3个残影
+            int shadowCount = 1;  // 每对点之间的插值数量
+            for (int j = 1; j <= shadowCount; j++)
+            {
+                float t = j / (float)(shadowCount + 1);  // 线性插值的比例
+                Vector3 shadowPosition = Vector3.Lerp(startPoint + new Vector3(offset * dashDir, 0, 0), endPoint+new Vector3(offset * dashDir, 0, 0), t);
+                CreateShadow(shadowPosition, player);
             }
         }
+            yield return new WaitForSeconds(shadowInterval);
+        }
     }
-
     public void StartDashCoroutine(Player player) // 启动冲刺协程
     {
         player.StartCoroutine(DashRoutine(player));

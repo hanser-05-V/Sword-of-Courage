@@ -30,8 +30,6 @@ public class PlayerState :IState
         player.animator.SetBool(animatorBoolName, true);
         rb = player.rb;
         playerController = player.playerController;
-        
-
         skill = SkillManager.Instance; //获取技能管理组件
     }
 
@@ -45,6 +43,7 @@ public class PlayerState :IState
         stateTimer-=Time.deltaTime; //逐帧减少持续时间 进入攻击状态重置
         xInput = Input.GetAxisRaw("Horizontal"); //获取水平方向输入
         yInput = Input.GetAxisRaw("Vertical"); //获取垂直方向输入
+        player.animator.SetFloat("Yvelocity",rb.velocity.y);
     }
  
 }
