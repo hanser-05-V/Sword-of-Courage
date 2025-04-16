@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerGroundState : PlayerState
 {
 
 
     private bool isJumping = false;
-
+    private InputAction jumpAction;
     public PlayerGroundState(Player player, FSM fsm, string animatorBoolName) : base(player, fsm, animatorBoolName)
     {
     }
@@ -16,7 +17,7 @@ public class PlayerGroundState : PlayerState
     public override void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
     {
         base.OnEnter(playerInfo, playerStats);
-  
+        jumpAction = player.playerInput.actions["Jump"];
     }
 
     public override void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
@@ -27,7 +28,7 @@ public class PlayerGroundState : PlayerState
     public override void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
     {
         base.Onupdate(playerInfo, playerStats);
-        if((Input.GetKeyDown(KeyCode.Space )|| Input.GetButton("Fire1") )&& player.IsGroundDetected()) //地面上 按下空格 跳跃
+        if(jumpAction.triggered && player.IsGroundDetected()) //地面上 按下空格 跳跃
         {
             isJumping = true;
             // playerController.ShowShadow();
@@ -41,10 +42,10 @@ public class PlayerGroundState : PlayerState
             fsm.ChangeState(StateType.Air);
         }
 
-        // if(Input.GetMouseButtonDown(0))
-        // {
-        //     fsm.ChangeState(StateType.Attack);
-        // }
+        if(Input.GetMouseButtonDown(0))
+        {
+            fsm.ChangeState(StateType.Attack);
+        }
         
     }
 }

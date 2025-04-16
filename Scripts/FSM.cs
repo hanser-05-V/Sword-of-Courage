@@ -5,8 +5,8 @@ using UnityEngine;
 public class FSM : MonoBehaviour //状态机基类
 {
 
-    public IState currentState{get;private set;}
-    public Dictionary<StateType,IState> stateDic = new Dictionary<StateType, IState>(); //状态机容器
+    public PlayerState currentState{get;private set;}
+    public Dictionary<StateType,PlayerState> stateDic = new Dictionary<StateType, PlayerState>(); //状态机容器
 
     public void ChangeState(StateType stateType) // 切换状态方法
     {

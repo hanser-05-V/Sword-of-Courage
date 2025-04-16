@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerAirState : PlayerState //玩家空中状态
 {
+
+    private InputAction jumpAction;
+
     public PlayerAirState(Player player, FSM fsm, string animatorBoolName) : base(player, fsm, animatorBoolName)
     {
     }
@@ -11,6 +15,9 @@ public class PlayerAirState : PlayerState //玩家空中状态
     public override void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
     {
         base.OnEnter(playerInfo, playerStats);
+        jumpAction = player.playerInput.actions["Jump"];
+        
+        jumpAction.Enable();
     }
 
     public override void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
@@ -47,10 +54,15 @@ public class PlayerAirState : PlayerState //玩家空中状态
             {
                 fsm.ChangeState(StateType.DownToGround);
             }
-            if(Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire1"))
+            // if(Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire1"))
+            // {
+            //     fsm.ChangeState(StateType.Jump); 
+            // } 
+            if(jumpAction.triggered)
             {
                 fsm.ChangeState(StateType.Jump); 
-            } 
+            }
+
         } 
 
         if(player.IsheadDetected()) //防止玩家之间飞出去

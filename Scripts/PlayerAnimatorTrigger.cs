@@ -20,7 +20,7 @@ public class PlayerAnimatorTrigger : MonoBehaviour
 
     private void AttackTrigger()//结束攻击动画
     {
-        player.animator.SetBool("Attack", false);
+        player.playerFSM.currentState.triggerCalled = true;
     }
 
 }

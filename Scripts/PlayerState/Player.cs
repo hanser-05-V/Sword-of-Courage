@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 public enum StateType //状态枚举
@@ -20,10 +21,14 @@ public class Player : Entity
     public PlayerInfo playerInfo ; //玩家信息 
     public PlayerController playerController ;//玩家控制器
 
+    public PlayerInput playerInput {get; private set;} //角色输入组件
+    
+    private InputAction jumpActionTest; //跳跃输入
 
     protected override void Awake()
     {
         base.Awake();
+        playerInput = this.GetComponent<PlayerInput>(); //获取角色输入组件
         playerFSM = new FSM(); //实例化玩家状态机
 
         playerFSM.stateDic.Add(StateType.Idle,new PlayerIdleState(this,playerFSM,"Idle"));
@@ -45,6 +50,7 @@ public class Player : Entity
     {
         base.Start();
         // playerController.CreatShadowBegain(); //创建初始残影列表
+
     }
     protected override void Update()
     {

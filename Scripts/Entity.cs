@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Entity : MonoBehaviour // 实体类的公共行为
 {
-
 
     [Header("检测相关")]
     public Transform groundCheck; // 地面检测点
@@ -23,16 +23,13 @@ public class Entity : MonoBehaviour // 实体类的公共行为
      #region  组件相关
     [SerializeField] public Animator animator ; //动画播放器
     [SerializeField] public Rigidbody2D rb;  //刚体组件
+
     public SpriteRenderer sp; //角色渲染器组件
     #endregion
     public int facing = 1; // 角色的朝向，1为右，-1为左
     private bool isFacingRight = true; // 角色的默认朝向，true为右，false为左
 
     
-    protected  virtual void Update()
-    {
-        
-    }
 
     #region 速度相关方法
     public void SetVecolity(float xVelocity, float yVelocity)//设置速度
@@ -109,9 +106,14 @@ public class Entity : MonoBehaviour // 实体类的公共行为
     #endregion
     protected virtual void  Awake()
     {
-      
+        
+
     }
     protected virtual void  Start()
+    {
+        
+    }
+    protected  virtual void Update()
     {
         
     }

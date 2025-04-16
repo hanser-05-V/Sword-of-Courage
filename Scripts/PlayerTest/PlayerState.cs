@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerState :IState
 {
@@ -16,7 +17,10 @@ public class PlayerState :IState
     //检测输入相关
     protected float xInput;
     protected float yInput;
+
+    private InputAction moveAction;
     protected float stateTimer; //状态持续时间计时器
+    
     public bool triggerCalled; //记录攻击结束
     
     public PlayerState(Player player,FSM fsm,string animatorBoolName)
@@ -31,6 +35,9 @@ public class PlayerState :IState
         rb = player.rb;
         playerController = player.playerController;
         skill = SkillManager.Instance; //获取技能管理组件
+
+        moveAction = player.playerInput.actions["Move"];
+
     }
 
     public virtual void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
@@ -41,7 +48,10 @@ public class PlayerState :IState
     public virtual void Onupdate(PlayerInfo playerInfo , PlayerStats playerStats)
     {
         stateTimer-=Time.deltaTime; //逐帧减少持续时间 进入攻击状态重置
-        xInput = Input.GetAxisRaw("Horizontal"); //获取水平方向输入
+        // xInput = Input.GetAxisRaw("Horizontal"); //获取水平方向输入
+
+        xInput = moveAction.ReadValue<float>(); //获取水平方向输入
+    
         yInput = Input.GetAxisRaw("Vertical"); //获取垂直方向输入
         player.animator.SetFloat("Yvelocity",rb.velocity.y);
     }

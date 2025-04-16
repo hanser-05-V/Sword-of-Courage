@@ -19,14 +19,18 @@ public class PlayerCombuAttackState : PlayerState
     public override void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
     {
         base.OnEnter(playerInfo, playerStats);
+        
+        triggerCalled = false;
     
-        if(attackConter >2 || Time.time >= lastAttackedTimer + attackCool)
+        if(attackConter >1 || Time.time >= lastAttackedTimer + attackCool)
         {
-            attackConter = 1 ; //重置攻击计数
+
+            attackConter = 0 ; //重置攻击计数
         } 
         // playerController.SetInt("AttackCounter", attackConter);
-        //TODO: 攻击计数显示
 
+        player.animator.SetInteger("AttackCounter", attackConter); //显示攻击计数
+        //TODO: 攻击计数显示
         stateTimer =  0.1f; //设置持续时间 0.1秒
         attackDic = player.facing; //默认方向为面朝向
 
@@ -54,6 +58,10 @@ public class PlayerCombuAttackState : PlayerState
         {
             player.SetZeroVecolity(); //进入攻击状态后，清除速度
         }
-
+        
+        if(triggerCalled) //攻击结束
+        {
+            fsm.ChangeState(StateType.Idle);
+        }
     }
 }
