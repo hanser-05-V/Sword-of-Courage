@@ -14,6 +14,7 @@ public class PlayerCombuAttackState : PlayerState
     protected float lastAttackedTimer; //上一次攻击的时间
     public PlayerCombuAttackState(Player player, FSM fsm, string animatorBoolName) : base(player, fsm, animatorBoolName)
     {
+
     }
 
     public override void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
@@ -27,18 +28,15 @@ public class PlayerCombuAttackState : PlayerState
 
             attackConter = 0 ; //重置攻击计数
         } 
-        // playerController.SetInt("AttackCounter", attackConter);
-
         player.animator.SetInteger("AttackCounter", attackConter); //显示攻击计数
-        //TODO: 攻击计数显示
+     
         stateTimer =  0.1f; //设置持续时间 0.1秒
         attackDic = player.facing; //默认方向为面朝向
 
         if(xInput !=0)
         {
             attackDic = xInput; //根据水平方向输入值设置方向
-        }
-        
+        }    
     }
 
     public override void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)

@@ -10,7 +10,7 @@ public enum StateType //状态枚举
     Move,MoveBefore,
     Jump,DownToGround,
     Down,DownRepeat,DownHeavy,
-    Attack,Attack2,Attack3,
+    Attack,AttackUp,AttackDown,
     Died, Dash,
     Air,Ground,
 }
@@ -23,7 +23,8 @@ public class Player : Entity
 
     public PlayerInput playerInput {get; private set;} //角色输入组件
     
-    private InputAction jumpActionTest; //跳跃输入
+    private InputAction dashAction; //冲刺输入检测
+    public bool isBusy {get ; private set ;} //判断是否处于 后摇阶段
 
     protected override void Awake()
     {
@@ -43,6 +44,8 @@ public class Player : Entity
         playerFSM.stateDic.Add(StateType.DownRepeat,new PlayerDownReaptState(this,playerFSM,"DownRepeat"));
 
         playerFSM.stateDic.Add(StateType.Attack,new PlayerCombuAttackState(this,playerFSM,"Attack"));
+        playerFSM.stateDic.Add(StateType.AttackUp,new PlayerAttackUpState(this,playerFSM,"AttackUp"));
+        playerFSM.stateDic.Add(StateType.AttackDown,new PlayerAttackDownState(this,playerFSM,"AttackDown"));
 
         playerFSM.InitState(StateType.Idle); //初始化状态
     }
@@ -50,6 +53,7 @@ public class Player : Entity
     {
         base.Start();
         // playerController.CreatShadowBegain(); //创建初始残影列表
+        dashAction = playerInput.actions["Dash"]; //获取冲刺输入检测
 
     }
     protected override void Update()
@@ -57,7 +61,7 @@ public class Player : Entity
         base.Update();
         playerFSM.currentState.Onupdate(playerInfo,null);//更新状态状态机
         
-        if((Input.GetKeyDown(KeyCode.Q ) || Input.GetButtonDown("Fire3"))  && SkillManager.Instance.dash.CanUseSkill())
+        if( dashAction.triggered && SkillManager.Instance.dash.CanUseSkill())
         {
             
             StartCoroutine(playerController.StartDash(this));
@@ -65,4 +69,13 @@ public class Player : Entity
         }
     }
 
+    //玩家后摇时间设置
+    IEnumerator BusyFor(float waitTime)
+    {
+        isBusy = true;
+
+        yield return new WaitForSeconds(waitTime);
+
+        isBusy = false;
+    }
 }

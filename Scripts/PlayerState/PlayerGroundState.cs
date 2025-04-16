@@ -10,6 +10,7 @@ public class PlayerGroundState : PlayerState
 
     private bool isJumping = false;
     private InputAction jumpAction;
+    private InputAction attackAction;
     public PlayerGroundState(Player player, FSM fsm, string animatorBoolName) : base(player, fsm, animatorBoolName)
     {
     }
@@ -18,6 +19,7 @@ public class PlayerGroundState : PlayerState
     {
         base.OnEnter(playerInfo, playerStats);
         jumpAction = player.playerInput.actions["Jump"];
+        attackAction = player.playerInput.actions["Attack"];
     }
 
     public override void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
@@ -42,7 +44,7 @@ public class PlayerGroundState : PlayerState
             fsm.ChangeState(StateType.Air);
         }
 
-        if(Input.GetMouseButtonDown(0))
+        if(attackAction.triggered) // 攻击
         {
             fsm.ChangeState(StateType.Attack);
         }

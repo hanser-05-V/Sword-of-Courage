@@ -6,7 +6,10 @@ using UnityEngine.InputSystem;
 public class PlayerAirState : PlayerState //玩家空中状态
 {
 
-    private InputAction jumpAction;
+    private InputAction jumpAction; //跳跃事件
+    
+    private InputAction attackUpAction; //向上攻击事件
+    private InputAction attackDownAction; //向下攻击事件
 
     public PlayerAirState(Player player, FSM fsm, string animatorBoolName) : base(player, fsm, animatorBoolName)
     {
@@ -15,9 +18,12 @@ public class PlayerAirState : PlayerState //玩家空中状态
     public override void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
     {
         base.OnEnter(playerInfo, playerStats);
+
         jumpAction = player.playerInput.actions["Jump"];
-        
-        jumpAction.Enable();
+        attackUpAction = player.playerInput.actions["AttackUp"];
+        attackDownAction = player.playerInput.actions["AttackDown"];
+
+    
     }
 
     public override void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
@@ -39,7 +45,6 @@ public class PlayerAirState : PlayerState //玩家空中状态
         {
             fsm.ChangeState(StateType.Down);
         }
-       
 
         if(player.IsGroundDetected()) //检测到地面 变为静止状态
         {
@@ -71,8 +76,17 @@ public class PlayerAirState : PlayerState //玩家空中状态
             player.SetVecolity(0,rb.velocity.y);
             fsm.ChangeState(StateType.Down);
         }
-
         
+        //TODO: 空中组合键位设置 现在先用一个攻击键代替
+        if(attackUpAction.triggered) //向上攻击触发
+        {
+            Debug.Log("向上攻击");
+        }
+         //TODO: 空中组合键位设置 现在先用一个攻击键代替
+        if(attackDownAction.triggered) //向下攻击触发
+        {
+            Debug.Log("向下攻击");
+        }
     }
 
    
