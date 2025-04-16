@@ -20,10 +20,7 @@ public class PlayerAirState : PlayerState //玩家空中状态
         base.OnEnter(playerInfo, playerStats);
 
         jumpAction = player.playerInput.actions["Jump"];
-        attackUpAction = player.playerInput.actions["AttackUp"];
-        attackDownAction = player.playerInput.actions["AttackDown"];
-
-    
+  
     }
 
     public override void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
@@ -77,16 +74,7 @@ public class PlayerAirState : PlayerState //玩家空中状态
             fsm.ChangeState(StateType.Down);
         }
         
-        //TODO: 空中组合键位设置 现在先用一个攻击键代替
-        if(attackUpAction.triggered) //向上攻击触发
-        {
-            Debug.Log("向上攻击");
-        }
-         //TODO: 空中组合键位设置 现在先用一个攻击键代替
-        if(attackDownAction.triggered) //向下攻击触发
-        {
-            Debug.Log("向下攻击");
-        }
+     
     }
 
    

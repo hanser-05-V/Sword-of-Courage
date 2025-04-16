@@ -17,6 +17,11 @@ public enum StateType //状态枚举
 
 public class Player : Entity
 {
+
+    [Header("攻击相关")]
+    public float[] attackMovements; //攻击位移
+    
+
     public FSM playerFSM {get; private set;} //玩家状态机
     public PlayerInfo playerInfo ; //玩家信息 
     public PlayerController playerController ;//玩家控制器

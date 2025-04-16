@@ -36,7 +36,8 @@ public class PlayerCombuAttackState : PlayerState
         if(xInput !=0)
         {
             attackDic = xInput; //根据水平方向输入值设置方向
-        }    
+        }
+        player.SetVecolity( attackDic * player.attackMovements[attackConter] ,rb.velocity.y); //进行攻击速度补偿    
     }
 
     public override void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)

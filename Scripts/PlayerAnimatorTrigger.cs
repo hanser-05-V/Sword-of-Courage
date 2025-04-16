@@ -18,9 +18,8 @@ public class PlayerAnimatorTrigger : MonoBehaviour
         
     }
 
-    private void AttackTrigger()//结束攻击动画
+    private void AttackOver()//结束攻击动画
     {
         player.playerFSM.currentState.triggerCalled = true;
     }
-
 }
