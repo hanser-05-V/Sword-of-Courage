@@ -7,6 +7,13 @@ using UnityEngine;
 public class AttackEffect : MonoBehaviour
 {
     [SerializeField] CinemachineVirtualCamera vcam;
+
+    private Player player;
+
+    void Awake()
+    {
+        player = PlayerManager.Instance.player;
+    }
     private Enemy moster;
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -20,7 +27,7 @@ public class AttackEffect : MonoBehaviour
                 
                 vcam.gameObject.SetActive(false);
                 //震动时间，震动强度，持续时间为5秒，震动随机，是否抖动为false，是否恢复到原位为true
-                Camera.main.transform.DOShakePosition(1,1,5,90,false,true).OnComplete(()=>
+                Camera.main.transform.DOShakePosition(player.shakeTime,player.shakeStrength,5,90,false,true).OnComplete(()=>
                 {
                     vcam.gameObject.SetActive(true);
                 }); 

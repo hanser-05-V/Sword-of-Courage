@@ -44,11 +44,19 @@ public class PlayerDownState : PlayerState
                 fsm.ChangeState(StateType.DownToGround);
             }
         } 
-
-
         if(xInput != 0) //空中水平方向有输入
         {
             player.SetVecolity(playerInfo.moveSpeed * xInput * 0.8f, player.rb.velocity.y);
         }  
+
+        if(player.attackUpAction.triggered) //空中向上攻击
+        {
+            fsm.ChangeState(StateType.AttackUp);
+        }
+        if(player.attackDownAction.triggered) //空中向下攻击
+        {
+       
+            fsm.ChangeState(StateType.AttackDown);
+        }
     }
 }

@@ -7,9 +7,6 @@ public class PlayerAirState : PlayerState //玩家空中状态
 {
 
     private InputAction jumpAction; //跳跃事件
-    
-    private InputAction attackUpAction; //向上攻击事件
-    private InputAction attackDownAction; //向下攻击事件
 
     public PlayerAirState(Player player, FSM fsm, string animatorBoolName) : base(player, fsm, animatorBoolName)
     {
@@ -74,7 +71,16 @@ public class PlayerAirState : PlayerState //玩家空中状态
             fsm.ChangeState(StateType.Down);
         }
         
-     
+        if(player.attackUpAction.triggered) //空中向上攻击
+        {
+            Debug.Log("空中向上攻击");
+            fsm.ChangeState(StateType.AttackUp);
+        }
+        if(player.attackDownAction.triggered) //空中向下攻击
+        {
+            Debug.Log("空中向下攻击");
+            fsm.ChangeState(StateType.AttackDown);
+        }
     }
 
    

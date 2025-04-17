@@ -11,6 +11,9 @@ public class PlayerAttackUpState : PlayerState
     public override void OnEnter(PlayerInfo playerInfo, PlayerStats playerStats)
     {
         base.OnEnter(playerInfo, playerStats);
+        Debug.Log("进入向上攻击状态");
+
+        triggerCalled = false;
     }
 
     public override void OnExit(PlayerInfo playerInfo, PlayerStats playerStats)
@@ -21,5 +24,11 @@ public class PlayerAttackUpState : PlayerState
     public override void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)
     {
         base.Onupdate(playerInfo, playerStats);
+
+
+        if(triggerCalled)//攻击结束
+        {
+            fsm.ChangeState(StateType.Idle);
+        }
     }
 }

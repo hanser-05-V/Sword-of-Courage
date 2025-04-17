@@ -194,48 +194,136 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "b5d4c008-74d9-4c3d-89aa-588a11568073",
-                    "path": "<Mouse>/leftButton",
+                    "name": "One Modifier - GamePad",
+                    "id": "2c0a821d-682a-4ffa-a71d-1378df19556b",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AttackUp",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "2175d1e6-5500-4551-9d1c-5770cbd253dc",
+                    "path": "<Gamepad>/leftStick/up",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "AttackUp",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "423f7078-1b1a-4aed-b535-f29ef8a80922",
+                    "name": "binding",
+                    "id": "81e5ad2e-3472-4c7f-bff7-f5d2e625907c",
                     "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "AttackUp",
                     "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "One Modifier - KeyBoard",
+                    "id": "c9e1aa96-6be9-464c-8888-52cc2c001566",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AttackUp",
+                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "d8bf417b-0f17-43c7-911c-210eea499947",
+                    "name": "modifier",
+                    "id": "1379773c-a778-4667-824a-921edfbc55eb",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AttackUp",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "73f8d786-34fb-453e-b9c4-6cb0a04ff6e0",
                     "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AttackUp",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "One Modifier - GamePad",
+                    "id": "98b132df-1439-46ee-9b45-cdfffce824a0",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AttackDown",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "2add4ba9-3975-4fd3-9969-a94016c9eca1",
+                    "path": "<Gamepad>/leftStick/down",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "AttackDown",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "03603b44-f341-4979-8210-316f4da556a1",
+                    "name": "binding",
+                    "id": "fa14c0df-5d37-4a84-94b8-cc7fe65794b4",
                     "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "AttackDown",
                     "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "One Modifier -Key board",
+                    "id": "d274c71d-471e-4566-a9da-224bb3748d18",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AttackDown",
+                    "isComposite": true,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "511f86b0-bb2d-4e79-8606-86b6e9138d7a",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AttackDown",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "92f00673-8e25-428d-b661-e5994b0597f3",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AttackDown",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

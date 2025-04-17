@@ -21,6 +21,9 @@ public class Player : Entity
     [Header("攻击相关")]
     public float[] attackMovements; //攻击位移
     
+    [Header("镜头晃动")]
+    public float shakeTime = 0.2f; //镜头晃动时间
+    public float shakeStrength = 0.5f; //镜头晃动强度
 
     public FSM playerFSM {get; private set;} //玩家状态机
     public PlayerInfo playerInfo ; //玩家信息 
@@ -29,6 +32,8 @@ public class Player : Entity
     public PlayerInput playerInput {get; private set;} //角色输入组件
     
     private InputAction dashAction; //冲刺输入检测
+    public InputAction attackUpAction {get; private set;} //攻击上跳输入检测
+    public InputAction attackDownAction {get; private set;} //攻击下跳输入检测
     public bool isBusy {get ; private set ;} //判断是否处于 后摇阶段
 
     protected override void Awake()
@@ -59,7 +64,9 @@ public class Player : Entity
         base.Start();
         // playerController.CreatShadowBegain(); //创建初始残影列表
         dashAction = playerInput.actions["Dash"]; //获取冲刺输入检测
-
+        attackUpAction = playerInput.actions["AttackUp"]; //获取攻击上跳输入检测
+        attackDownAction = playerInput.actions["AttackDown"]; //获取攻击下跳输入检测
+        
     }
     protected override void Update()
     {
@@ -67,20 +74,22 @@ public class Player : Entity
         playerFSM.currentState.Onupdate(playerInfo,null);//更新状态状态机
         
         if( dashAction.triggered && SkillManager.Instance.dash.CanUseSkill())
-        {
-            
+        {  
             StartCoroutine(playerController.StartDash(this));
-            
         }
     }
 
     //玩家后摇时间设置
-    IEnumerator BusyFor(float waitTime)
+    IEnumerator Busy(float waitTime)
     {
         isBusy = true;
 
         yield return new WaitForSeconds(waitTime);
 
         isBusy = false;
+    }
+    public void BusyFor(float waitTime)
+    {
+        StartCoroutine(Busy(waitTime));
     }
 }

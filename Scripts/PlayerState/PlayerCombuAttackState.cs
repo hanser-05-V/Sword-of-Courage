@@ -6,7 +6,6 @@ using UnityEngine;
 public class PlayerCombuAttackState : PlayerState
 {
 
-  
     public  int attackConter {get; private set;}
     
     protected float attackDic; //攻击的方向
@@ -47,6 +46,7 @@ public class PlayerCombuAttackState : PlayerState
         attackConter++; //攻击计数加1
         lastAttackedTimer = Time.time; //记录上一次攻击的时间
 
+        player.BusyFor(0.5f); //进入攻击后摇
     }
 
     public override void Onupdate(PlayerInfo playerInfo, PlayerStats playerStats)

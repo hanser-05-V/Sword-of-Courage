@@ -2131,7 +2131,7 @@ GameObject:
   - component: {fileID: 32294805}
   m_Layer: 0
   m_Name: CM vcam1
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2179,7 +2179,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 32294804}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 57.414906, y: 57.25996, z: -120}
+  m_LocalPosition: {x: 52.143543, y: 57.25996, z: -120}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1289967388}
@@ -9271,7 +9271,7 @@ GameObject:
   - component: {fileID: 446283657}
   m_Layer: 0
   m_Name: Main Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9335,7 +9335,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 446283653}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 57.414906, y: 57.25996, z: -120}
+  m_LocalPosition: {x: 52.143543, y: 57.25996, z: -120}
   m_LocalScale: {x: 1.8, y: 1.8, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -29390,6 +29390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ae8921dd068ee747a763b935d69786a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vcam: {fileID: 32294805}
 --- !u!4 &1446366578 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1053152885518646731, guid: 13a78c85e91f85a41a25330a6e48a711, type: 3}
@@ -29822,6 +29823,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ae8921dd068ee747a763b935d69786a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vcam: {fileID: 32294805}
 --- !u!1 &1481586038
 GameObject:
   m_ObjectHideFlags: 0
@@ -40527,7 +40529,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2117139004}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 48.53, y: 54.82, z: 3.5}
+  m_LocalPosition: {x: 53.65, y: 54.82, z: 3.5}
   m_LocalScale: {x: 0.35, y: 0.35, z: 1}
   m_Children: []
   m_Father: {fileID: 269652580}
@@ -42102,6 +42104,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 410747035}
     m_Modifications:
     - target: {fileID: 7475228078943787852, guid: dbb5a7ebb2d106644b4b9ddfc32484e6, type: 3}
+      propertyPath: shakeStrength
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7475228078943787852, guid: dbb5a7ebb2d106644b4b9ddfc32484e6, type: 3}
       propertyPath: playerInfo.moveSpeed
       value: 13
       objectReference: {fileID: 0}
@@ -42127,7 +42133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7475228078943787855, guid: dbb5a7ebb2d106644b4b9ddfc32484e6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 54.431
+      value: 49.16
       objectReference: {fileID: 0}
     - target: {fileID: 7475228078943787855, guid: dbb5a7ebb2d106644b4b9ddfc32484e6, type: 3}
       propertyPath: m_LocalPosition.y
