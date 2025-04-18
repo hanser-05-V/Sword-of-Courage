@@ -21,37 +21,34 @@ public class Entity : MonoBehaviour // 实体类的公共行为
 
     [Header("组件相关")]
      #region  组件相关
-    [SerializeField] public Animator animator ; //动画播放器
-    [SerializeField] public Rigidbody2D rb;  //刚体组件
+    public Animator animator ;//动画播放器
+    public Rigidbody2D rb;  //刚体组件
 
     public SpriteRenderer sp; //角色渲染器组件
     #endregion
     public int facing = 1; // 角色的朝向，1为右，-1为左
     private bool isFacingRight = true; // 角色的默认朝向，true为右，false为左
 
-    
-
     #region 速度相关方法
-    public void SetVecolity(float xVelocity, float yVelocity)//设置速度
+    public  virtual void SetVecolity(float xVelocity, float yVelocity)//设置速度
     {
         rb.velocity = new Vector2(xVelocity, yVelocity);
         FlipController(xVelocity);
     }
-    public void SetZeroVecolity()//设置速度为0
+    public virtual void SetZeroVecolity()//设置速度为0
     {
         rb.velocity = new Vector2(0,0);
     }
     #endregion
 
-
     #region 角色翻转
-    public void Flip()
+    public virtual void Flip()
     {
         facing = facing * -1; // 角色的朝向取反
         isFacingRight =!isFacingRight; // 角色的默认朝向取反
         this.transform.Rotate(0, 180, 0); // 角色的物理朝向也要跟着改变
     }   
-    public void FlipController(float xVelocity)
+    public virtual void FlipController(float xVelocity)
     {
         if(xVelocity>0 && !isFacingRight)
         {
@@ -65,7 +62,6 @@ public class Entity : MonoBehaviour // 实体类的公共行为
     #endregion
 
     #region 检测相关
-
     public bool IsGroundDetected() // 检测是否在地面上
     {
         if(Physics2D.Raycast(groundCheck.position,Vector2.down,groundChenkDistance,groundLayer))
@@ -106,7 +102,9 @@ public class Entity : MonoBehaviour // 实体类的公共行为
     #endregion
     protected virtual void  Awake()
     {
-        
+        animator = this.GetComponentInChildren<Animator>();
+        sp = this.GetComponentInChildren<SpriteRenderer>();
+        rb = this.GetComponent<Rigidbody2D>();
 
     }
     protected virtual void  Start()
@@ -117,7 +115,8 @@ public class Entity : MonoBehaviour // 实体类的公共行为
     {
         
     }
-    void OnDrawGizmos()
+
+    protected virtual void OnDrawGizmos()
     {
         Gizmos.DrawLine(groundCheck.position , new Vector3(groundCheck.position.x, groundCheck.position.y - groundChenkDistance, groundCheck.position.z));
         Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x+ wallCheckDistance, wallCheck.position.y , wallCheck.position.z));

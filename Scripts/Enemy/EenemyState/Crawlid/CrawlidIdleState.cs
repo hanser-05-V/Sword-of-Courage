@@ -11,6 +11,8 @@ public class CrawlidIdleState : CrawlidGroundState
     public override void OnEnter()
     {
         base.OnEnter();
+        stateTime = enemy.idleTime;
+
     }
     
     public override void OnExit()
@@ -20,5 +22,10 @@ public class CrawlidIdleState : CrawlidGroundState
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        if(stateTime <=0)
+        {
+            fsm.ChangeState(CrawlidStateType.Move.ToString());
+        }
     }
 }

@@ -11,6 +11,8 @@ public class CrawlidMoveState : CrawlidGroundState
     public override void OnEnter()
     {
         base.OnEnter();
+        Debug.Log("进入移动状态");
+
     }
     public override void OnExit()
     {
@@ -19,5 +21,10 @@ public class CrawlidMoveState : CrawlidGroundState
     public override void OnUpdate()
     {
         base.OnUpdate();
+        rb.velocity = new Vector2(enemy.moveSpeed * enemy.facing, rb.velocity.y);
+        // if(enemy.IsWallDetected() || !enemy.IsGroundDetected())
+        // {
+        //     fsm.ChangeState(CrawlidState.Idle.ToString());
+        // }
     }
 }

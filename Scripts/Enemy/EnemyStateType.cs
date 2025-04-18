@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class EnemyStateType 
 {
-    public CrawlidState crawlidState =  new CrawlidState();
+    public CrawlidStateType crawlidState =  new CrawlidStateType();
 }
