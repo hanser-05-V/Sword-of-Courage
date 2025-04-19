@@ -11,7 +11,7 @@ public class CrawlidMoveState : CrawlidGroundState
     public override void OnEnter()
     {
         base.OnEnter();
-        Debug.Log("进入移动状态");
+
 
     }
     public override void OnExit()
